@@ -11,10 +11,15 @@ import SwiftUI
 struct ContentView: View {
 
     @State private var cities = Bundle.main.decode([City].self, from: "cities.json").sorted(by: { $0.name < $1.name })
-    @State private var searchTerm = ""
-
-    private let chunkSize = 20
+    @State private var searchTerm: String = ""
     @State var range: Range<Int> = 0..<20
+    private let chunkSize = 20
+
+
+    var citiesSearched: [City] {
+        let citiesSearched = (searchTerm.isEmpty) ? cities : cities.filter { $0.name.starts(with: searchTerm) }
+        return citiesSearched
+    }
 
     var body: some View {
 
@@ -23,31 +28,44 @@ struct ContentView: View {
                 Section {
 
                     TextField("Search", text: $searchTerm)
-                        .keyboardType(.alphabet)
+                        .keyboardType(.namePhonePad)
+                        .disableAutocorrection(true)
+
                 }
 
                 Section(header: Text("Cities")) {
                     List {
                         ForEach(range, id: \.self) {
-                            Text("\(self.cities[$0].name), \(self.cities[$0].country)")
+                            Text("\(self.citiesSearched[$0].name), \(self.citiesSearched[$0].country)")
                         }
                         Button(action: loadMore) {
                             Text("")
+                        }
+                        .onAppear {
+                            DispatchQueue.global(qos: .background).asyncAfter(deadline: DispatchTime(uptimeNanoseconds: 10)) {
+                                self.loadMore()
                             }
-                            .onAppear {
-                                DispatchQueue.global(qos: .background).asyncAfter(deadline: DispatchTime(uptimeNanoseconds: 10)) {
-                                    self.loadMore()
-                                }
                         }
                     }
                 }
 
             }.navigationBarTitle("City list")
+            .onTapGesture {
+                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
+            }
         }
     }
 
     func loadMore() {
-        self.range = 0..<self.range.upperBound + self.chunkSize
+        var upperLimit = self.range.upperBound + self.chunkSize
+        if citiesSearched.count < upperLimit {
+            upperLimit = citiesSearched.count
+        }
+        self.range = 0..<upperLimit
+    }
+
+    func search(_ searchTerm: String) {
+        print("searching \(searchTerm)")
     }
 }
 
@@ -56,3 +74,11 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
+extension UIApplication {
+    func endEditing() {
+        sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+}
+
+
