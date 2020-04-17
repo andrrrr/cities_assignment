@@ -26,7 +26,7 @@ struct ContentView: View {
                         .keyboardType(.alphabet)
                 }
 
-                Section(header: Text("How much tip do you want to leave?")) {
+                Section(header: Text("Cities")) {
                     List {
                         ForEach(range, id: \.self) {
                             Text("\(self.cities[$0].name), \(self.cities[$0].country)")
@@ -40,10 +40,9 @@ struct ContentView: View {
                                 }
                         }
                     }
-
                 }
 
-            }.navigationBarTitle("Cities")
+            }.navigationBarTitle("City list")
         }
     }
 
