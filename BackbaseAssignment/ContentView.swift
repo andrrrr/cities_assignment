@@ -10,21 +10,45 @@ import SwiftUI
 
 struct ContentView: View {
 
-    @State private var cities = Bundle.main.decode([City].self, from: "cities.json")
+    @State private var cities = Bundle.main.decode([City].self, from: "cities.json").sorted(by: { $0.name < $1.name })
+    @State private var searchTerm = ""
 
-
+    private let chunkSize = 20
+    @State var range: Range<Int> = 0..<20
 
     var body: some View {
 
-        VStack(spacing: 30) {
+        NavigationView {
+            Form {
+                Section {
 
-            ForEach(cities, id: \._id) { city in
-                Text(city.name)
-                    .padding()
-            }
+                    TextField("Search", text: $searchTerm)
+                        .keyboardType(.alphabet)
+                }
 
-            Spacer()
+                Section(header: Text("How much tip do you want to leave?")) {
+                    List {
+                        ForEach(range, id: \.self) {
+                            Text("\(self.cities[$0].name), \(self.cities[$0].country)")
+                        }
+                        Button(action: loadMore) {
+                            Text("")
+                            }
+                            .onAppear {
+                                DispatchQueue.global(qos: .background).asyncAfter(deadline: DispatchTime(uptimeNanoseconds: 10)) {
+                                    self.loadMore()
+                                }
+                        }
+                    }
+
+                }
+
+            }.navigationBarTitle("Cities")
         }
+    }
+
+    func loadMore() {
+        self.range = 0..<self.range.upperBound + self.chunkSize
     }
 }
 
@@ -33,35 +57,3 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
-
-
-extension Bundle {
-    func decode<T: Decodable>(_ type: T.Type, from file: String, dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .deferredToDate, keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys) -> T {
-        guard let url = self.url(forResource: file, withExtension: nil) else {
-            fatalError("Failed to locate \(file) in bundle.")
-        }
-
-        guard let data = try? Data(contentsOf: url) else {
-            fatalError("Failed to load \(file) from bundle.")
-        }
-
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = dateDecodingStrategy
-        decoder.keyDecodingStrategy = keyDecodingStrategy
-
-        do {
-            return try decoder.decode(T.self, from: data)
-        } catch DecodingError.keyNotFound(let key, let context) {
-            fatalError("Failed to decode \(file) from bundle due to missing key '\(key.stringValue)' not found – \(context.debugDescription)")
-        } catch DecodingError.typeMismatch(_, let context) {
-            fatalError("Failed to decode \(file) from bundle due to type mismatch – \(context.debugDescription)")
-        } catch DecodingError.valueNotFound(let type, let context) {
-            fatalError("Failed to decode \(file) from bundle due to missing \(type) value – \(context.debugDescription)")
-        } catch DecodingError.dataCorrupted(_) {
-            fatalError("Failed to decode \(file) from bundle because it appears to be invalid JSON")
-        } catch {
-            fatalError("Failed to decode \(file) from bundle: \(error.localizedDescription)")
-        }
-    }
-}
-
