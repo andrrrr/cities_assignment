@@ -10,8 +10,8 @@ import SwiftUI
 
 struct ContentView: View {
 
-    //@State private var cities = Bundle.main.decode([City].self, from: "cities.json").sorted(by: { $0.name < $1.name })
-    @State private var searchTerm: String = "Kazan"
+    @State private var cities = Bundle.main.decode([City].self, from: "cities.json").sorted(by: { $0.name < $1.name })
+    @State private var searchTerm: String = ""
     @State var range: Range<Int> = 0..<20
     private let chunkSize = 20
 
@@ -43,15 +43,22 @@ struct ContentView: View {
                 Section(header: Text("Cities")) {
 
                     List {
-                        ForEach(cityStore.cities) { city in
-                            Text("\(city.name), \(city.country)")
-                        }
-                        Button(action: loadMore) {
-                            Text("")
-                        }
-                        .onAppear {
-                            DispatchQueue.global(qos: .background).asyncAfter(deadline: DispatchTime(uptimeNanoseconds: 10)) {
-                                self.loadMore()
+                        if searchTerm.isEmpty {
+                            ForEach(range, id: \.self) {
+                                Text("\(self.cities[$0].name), \(self.cities[$0].country)")
+                            }
+                            Button(action: loadMore) {
+                                Text("")
+                            }
+                            .onAppear {
+                                DispatchQueue.global(qos: .background).asyncAfter(deadline: DispatchTime(uptimeNanoseconds: 10)) {
+                                    self.loadMore()
+                                }
+                            }
+
+                        } else {
+                            ForEach(cityStore.cities) { city in
+                                Text("\(city.name), \(city.country)")
                             }
                         }
                     }
