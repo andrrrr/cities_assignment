@@ -18,7 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let windowScene = scene as? UIWindowScene {
 
             let window = UIWindow(windowScene: windowScene)
-            let store = CityStore(service: .init())
+            let store = CityStore()
             window.rootViewController = UIHostingController(
                 rootView: ContentView().environmentObject(store)
             )

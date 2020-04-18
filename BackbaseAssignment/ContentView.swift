@@ -17,18 +17,6 @@ struct ContentView: View {
 
     @EnvironmentObject var cityStore: CityStore
 
-    //@State private var citiesSearched: [City] = Bundle.main.decode([City].self, from: "cities.json").sorted(by: { $0.name < $1.name })
-
-
-//    func search() {
-//        citiesSearched = (searchTerm.isEmpty) ? cities : cities.filter { $0.name.starts(with: searchTerm) }
-//        if !searchTerm.isEmpty {
-//            setNewRange(citiesSearched.count)
-//        }
-//        //return filteredArray
-//    }
-
-
     var body: some View {
         NavigationView {
             Form {
@@ -43,7 +31,7 @@ struct ContentView: View {
                 Section(header: Text("Cities")) {
 
                     List {
-                        if searchTerm.isEmpty {
+//                        if searchTerm.isEmpty {
                             ForEach(range, id: \.self) {
                                 Text("\(self.cities[$0].name), \(self.cities[$0].country)")
                             }
@@ -56,11 +44,12 @@ struct ContentView: View {
                                 }
                             }
 
-                        } else {
-                            ForEach(cityStore.cities) { city in
-                                Text("\(city.name), \(city.country)")
-                            }
-                        }
+//                        } else {
+//                            ForEach(cityStore.cities) { city in
+//                                Text("\(city.name), \(city.country)")
+//                            }
+//
+//                        }
                     }
                 }
 
@@ -75,7 +64,7 @@ struct ContentView: View {
     
 
     private func fetch() {
-        print(cityStore.cities.count)
+        //print(cityStore.citiesUnfiltered.count)
         cityStore.fetch(matching: searchTerm)
     }
 
@@ -87,9 +76,9 @@ struct ContentView: View {
     func loadMore() {
         if searchTerm.isEmpty {
             var upperLimit = self.range.upperBound + self.chunkSize
-            if cityStore.cities.count < upperLimit {
-                upperLimit = cityStore.cities.count
-            }
+//            if cityStore.citiesUnfiltered.count < upperLimit {
+//                upperLimit = cityStore.citiesUnfiltered.count
+//            }
             setNewRange(upperLimit)
         }
     }
