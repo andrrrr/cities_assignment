@@ -37,7 +37,10 @@ struct ContentView: View {
                     if self.searchTerm.isEmpty {
                         List {
                             ForEach(range, id: \.self) {
-                                Text("\(self.cityStore.allCitiesArray[$0].name), \(self.cityStore.allCitiesArray[$0].country)")
+//                                VStack {
+                                    Text("\(self.cityStore.allCitiesArray[$0].name), \(self.cityStore.allCitiesArray[$0].country)").fontWeight(.bold)
+//                                    Text("\(self.cityStore.allCitiesArray[$0].coord.lat) - \(self.cityStore.allCitiesArray[$0].coord.lon)").fontWeight(.regular)
+//                                }
                             }
                             Button(action: loadMore) {
                                 Text("")
@@ -51,7 +54,11 @@ struct ContentView: View {
                     } else {
                         List {
                             ForEach(cityStore.citiesFiltered) { city in
-                                Text("\(city.name), \(city.country)")
+//                                VStack {
+                                    Text("\(city.name), \(city.country)").fontWeight(.bold)
+//                                    Text("\(city.coord.lat) - \(city.coord.lon)").fontWeight(.regular)
+//
+//                                }
                             }
                         }
                     }
