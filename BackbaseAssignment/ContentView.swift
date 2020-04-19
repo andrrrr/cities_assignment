@@ -12,8 +12,8 @@ struct ContentView: View {
 
     @State private var progressValue: Float = 0.0
     @State private var searchTerm: String = ""
-    @State var range: Range<Int> = 0..<9
-    private let chunkSize = 9
+    @State var range: Range<Int> = 0..<20
+    private let chunkSize = 20
 
     @EnvironmentObject var cityStore: CityStore
     @EnvironmentObject var tree: Tree
@@ -62,18 +62,7 @@ struct ContentView: View {
                     UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
             }
         }
-        .onAppear(perform: fetch)
-        .onAppear(perform: startProgressBar)
-    }
-
-    func startProgressBar() {
-        for _ in 0...80 {
-            self.progressValue += 0.005
-        }
-    }
-
-    func resetProgressBar() {
-        self.progressValue = 0.0
+        .onAppear(perform: debouncedFetch)
     }
 
     private func fetch() {
