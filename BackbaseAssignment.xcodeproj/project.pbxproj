@@ -17,7 +17,6 @@
 		474509FB2449FCD800C18DF7 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474509FA2449FCD800C18DF7 /* City.swift */; };
 		474509FD244AEB6200C18DF7 /* SearchAlgorythm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474509FC244AEB6200C18DF7 /* SearchAlgorythm.swift */; };
 		47450A1F244B194300C18DF7 /* CityStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47450A1E244B194300C18DF7 /* CityStore.swift */; };
-		47450A21244B198F00C18DF7 /* CityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47450A20244B198F00C18DF7 /* CityService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,7 +32,6 @@
 		474509FA2449FCD800C18DF7 /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
 		474509FC244AEB6200C18DF7 /* SearchAlgorythm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAlgorythm.swift; sourceTree = "<group>"; };
 		47450A1E244B194300C18DF7 /* CityStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityStore.swift; sourceTree = "<group>"; };
-		47450A20244B198F00C18DF7 /* CityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,7 +71,6 @@
 				474509FC244AEB6200C18DF7 /* SearchAlgorythm.swift */,
 				474509FA2449FCD800C18DF7 /* City.swift */,
 				47450A1E244B194300C18DF7 /* CityStore.swift */,
-				47450A20244B198F00C18DF7 /* CityService.swift */,
 				474509EA2449F64D00C18DF7 /* Assets.xcassets */,
 				474509EF2449F64D00C18DF7 /* LaunchScreen.storyboard */,
 				474509F22449F64D00C18DF7 /* Info.plist */,
@@ -168,7 +165,6 @@
 				474509FB2449FCD800C18DF7 /* City.swift in Sources */,
 				47450A1F244B194300C18DF7 /* CityStore.swift in Sources */,
 				474509E92449F64C00C18DF7 /* ContentView.swift in Sources */,
-				47450A21244B198F00C18DF7 /* CityService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

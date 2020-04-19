@@ -11,10 +11,9 @@ import Combine
 
 class CityStore: ObservableObject {
     @Published private(set) var citiesFiltered: [City] = []
-    @Published private(set) var citiesAll: [(String, [City])] = []
+    @Published private(set) var allCitiesArray = Bundle.main.decode([City].self, from: "cities.json").sorted(by: { $0.name < $1.name })
 
-    var allCitiesArray = Bundle.main.decode([City].self, from: "cities.json").sorted(by: { $0.name < $1.name })
-
+    private(set) var citiesByLetter: [(String, [City])] = []
     private let latinAlphabet = "abcdefghijklmnopqrstuvwxyz"
 
     init() {
@@ -29,7 +28,7 @@ class CityStore: ObservableObject {
             let subset = allCitiesArray.filter { $0.name.lowercased().hasPrefix(char) }
             unfilteredCities.append((char, subset))
         }
-        citiesAll = unfilteredCities
+        citiesByLetter = unfilteredCities
     }
 
     func splitInChunks() -> [(String, [City])] {
@@ -38,22 +37,31 @@ class CityStore: ObservableObject {
 
     func fetch(matching query: String) {
         search(matching: query.lowercased()) { [weak self] result in
-            self?.citiesFiltered = []
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
+            DispatchQueue.main.async {
                  self?.citiesFiltered = result
             }
         }
     }
 
-    func search(matching searchTerm: String, handler: @escaping ([City]) -> Void) {
+    private var previousSearchTerm = ""
+
+
+    // search uses caching, 
+    private func search(matching searchTerm: String, handler: @escaping ([City]) -> Void) {
         guard !searchTerm.isEmpty else { return }
         let firstChar = searchTerm[searchTerm.startIndex]
-        for arrayPerLetter in citiesAll {
-            if arrayPerLetter.0 == "\(firstChar)" {
-                DispatchQueue.main.async {
-                    handler(arrayPerLetter.1.filter {$0.name.lowercased().hasPrefix(searchTerm)})
-                }
-            }
+
+        var arrayToScan: [City]
+        if !previousSearchTerm.isEmpty && searchTerm.hasPrefix(previousSearchTerm) {
+            arrayToScan = citiesFiltered
+        } else {
+            arrayToScan = citiesByLetter.first(where:{$0.0 == "\(firstChar)"})?.1 ?? []
+        }
+        previousSearchTerm = searchTerm
+        let arrayFound = (searchTerm.count == 1) ? arrayToScan : arrayToScan.filter {$0.name.lowercased().hasPrefix(searchTerm)}
+
+        DispatchQueue.main.async {
+            handler(arrayFound)
         }
     }
 }

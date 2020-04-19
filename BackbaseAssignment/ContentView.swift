@@ -27,7 +27,7 @@ struct ContentView: View {
 
                 }
 
-                Section(header: Text("Cities")) {
+                Section(header: Text("Cities - \(arrayDisplayedCount) results")) {
 
                     List {
                         if searchTerm.isEmpty {
@@ -60,6 +60,7 @@ struct ContentView: View {
     }
 
     private func fetch() {
+        print("fetch: \(searchTerm)")
         cityStore.fetch(matching: searchTerm)
     }
 
@@ -68,8 +69,11 @@ struct ContentView: View {
         self.range = 0..<upperLimit
     }
 
+    private var arrayDisplayedCount: Int {
+        return (searchTerm.isEmpty) ? cityStore.allCitiesArray.count : cityStore.citiesFiltered.count
+    }
+
     func loadMore() {
-        let arrayDisplayedCount = (searchTerm.isEmpty) ? cityStore.allCitiesArray.count : cityStore.citiesFiltered.count
         let upperLimit = self.range.upperBound + self.chunkSize
         setNewRange(min(upperLimit, arrayDisplayedCount))
     }
