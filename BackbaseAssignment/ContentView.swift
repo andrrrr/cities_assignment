@@ -11,8 +11,8 @@ import SwiftUI
 struct ContentView: View {
 
     @State private var searchTerm: String = ""
-    @State var range: Range<Int> = 0..<20
-    private let chunkSize = 20
+    @State var range: Range<Int> = 0..<9
+    private let chunkSize = 9
 
     @EnvironmentObject var cityStore: CityStore
 
@@ -29,8 +29,8 @@ struct ContentView: View {
 
                 Section(header: Text("Cities - \(arrayDisplayedCount) results")) {
 
-                    List {
-                        if searchTerm.isEmpty {
+                    if self.searchTerm.isEmpty {
+                        List {
                             ForEach(range, id: \.self) {
                                 Text("\(self.cityStore.allCitiesArray[$0].name), \(self.cityStore.allCitiesArray[$0].country)")
                             }
@@ -42,19 +42,27 @@ struct ContentView: View {
                                     self.loadMore()
                                 }
                             }
-
-                        } else {
+                        }
+                    } else {
+                        List {
                             ForEach(cityStore.citiesFiltered) { city in
                                 Text("\(city.name), \(city.country)")
                             }
-
+//                            Button(action: loadMore) {
+//                                Text("")
+//                            }
+//                            .onAppear {
+//                                DispatchQueue.global(qos: .background).asyncAfter(deadline: DispatchTime(uptimeNanoseconds: 10)) {
+//                                    self.loadMore()
+//                                }
+//                            }
                         }
                     }
-                }
 
+                }
             }.navigationBarTitle("City list")
-            .onTapGesture {
-                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
+                .onTapGesture {
+                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
             }
         }.onAppear(perform: fetch)
     }

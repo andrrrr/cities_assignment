@@ -3,13 +3,34 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "ContentView.init():ContentView.swift">
+      </ContextState>
+      <ContextState
          contextName = "NSBundle.decode&lt;A&gt;(_:from:dateDecodingStrategy:keyDecodingStrategy:):ContentView.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ContentView.fetch():ContentView.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in CityStore.search(matching:handler:):CityStore.swift">
+      </ContextState>
+      <ContextState
+         contextName = "CityStore.search(matching:handler:):CityStore.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #4 in closure #1 in closure #2 in closure #1 in closure #1 in ContentView.body.getter:ContentView.swift">
+      </ContextState>
+      <ContextState
+         contextName = "SceneDelegate.scene(_:willConnectTo:options:):SceneDelegate.swift">
       </ContextState>
       <ContextState
          contextName = "closure #1 in closure #1 in closure #2 in closure #1 in closure #1 in ContentView.body.getter:ContentView.swift">
          <PersistentStrings>
             <PersistentString
-               value = "citiesSearched">
+               value = "self.cityStore.isSearching">
+            </PersistentString>
+            <PersistentString
+               value = "cityStore.citiesFiltered">
             </PersistentString>
             <PersistentString
                value = "self.cities[$0].name">
@@ -17,7 +38,18 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ContentView.init():ContentView.swift">
+         contextName = "ContentView.arrayDisplayedCount.getter:ContentView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "cityStore.isSearching">
+            </PersistentString>
+            <PersistentString
+               value = "searchTerm.isEmpty">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in CityStore.fetch(matching:):CityStore.swift">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

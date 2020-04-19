@@ -12,6 +12,7 @@ import Combine
 class CityStore: ObservableObject {
     @Published private(set) var citiesFiltered: [City] = []
     @Published private(set) var allCitiesArray = Bundle.main.decode([City].self, from: "cities.json").sorted(by: { $0.name < $1.name })
+    @Published private(set) var isSearching = false
 
     private(set) var citiesByLetter: [(String, [City])] = []
     private let latinAlphabet = "abcdefghijklmnopqrstuvwxyz"
@@ -36,9 +37,11 @@ class CityStore: ObservableObject {
     }
 
     func fetch(matching query: String) {
+        isSearching = true
         search(matching: query.lowercased()) { [weak self] result in
             DispatchQueue.main.async {
-                 self?.citiesFiltered = result
+                self?.isSearching = false
+                self?.citiesFiltered = result
             }
         }
     }
@@ -48,13 +51,18 @@ class CityStore: ObservableObject {
 
     // search uses caching, 
     private func search(matching searchTerm: String, handler: @escaping ([City]) -> Void) {
-        guard !searchTerm.isEmpty else { return }
+        guard !searchTerm.isEmpty else {
+            isSearching = false
+            return
+        }
         let firstChar = searchTerm[searchTerm.startIndex]
 
         var arrayToScan: [City]
         if !previousSearchTerm.isEmpty && searchTerm.hasPrefix(previousSearchTerm) {
+            print("cache")
             arrayToScan = citiesFiltered
         } else {
+            print("letter array: \(firstChar) ")
             arrayToScan = citiesByLetter.first(where:{$0.0 == "\(firstChar)"})?.1 ?? []
         }
         previousSearchTerm = searchTerm
