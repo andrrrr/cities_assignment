@@ -54,32 +54,27 @@ class CityStore: ObservableObject {
             needToFilter = true
         }
 
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            if let searchNode = self?.tree?.search(letter: searchThis) {
-                let array = (!needToFilter) ? searchNode.allCitiesUnder(letter: searchThis) : searchNode.allCitiesUnder(letter: searchThis).filter {$0.name.lowercased().hasPrefix(searchTerm)}
-                DispatchQueue.main.async {
-                    handler(array)
+        if !previousSearchTerm.isEmpty && searchTerm.hasPrefix(previousSearchTerm) {
+            print("cache")
+            DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+                if let array = (!needToFilter) ? self?.citiesFiltered : self?.citiesFiltered.filter {$0.name.lowercased().hasPrefix(searchTerm)} {
+                    DispatchQueue.main.async {
+                        handler(array)
+                    }
+                }
+            }
+        } else {
+            print("new search: \(searchTerm) ")
+            DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+                if let searchNode = self?.tree?.search(letter: searchThis) {
+                    let array = (!needToFilter) ? searchNode.allCitiesUnder(letter: searchThis) : searchNode.allCitiesUnder(letter: searchThis).filter {$0.name.lowercased().hasPrefix(searchTerm)}
+                    DispatchQueue.main.async {
+                        handler(array)
+                    }
                 }
             }
         }
-
-
-//        let firstChar = searchTerm[searchTerm.startIndex]
-//
-//        var arrayToScan: [City]
-//        if !previousSearchTerm.isEmpty && searchTerm.hasPrefix(previousSearchTerm) {
-//            print("cache")
-//            arrayToScan = citiesFiltered
-//        } else {
-//            print("letter array: \(firstChar) ")
-//            arrayToScan = citiesByLetter.first(where:{$0.0 == "\(firstChar)"})?.1 ?? []
-//        }
-//        previousSearchTerm = searchTerm
-//        let arrayFound = (searchTerm.count == 1) ? arrayToScan : arrayToScan.filter {$0.name.lowercased().hasPrefix(searchTerm)}
-//
-//        DispatchQueue.main.async {
-//            handler(arrayFound)
-//        }
+        previousSearchTerm = searchTerm
     }
 }
 
