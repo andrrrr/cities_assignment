@@ -23,12 +23,13 @@ struct ContentView: View {
         NavigationView {
             Form {
                 Section {
-
-                    ProgressBar(value: $tree.progressValue).frame(height: 10)
-                    TextField("Search", text: $searchTerm, onCommit: fetch)
-                        .keyboardType(.namePhonePad)
-                        .disableAutocorrection(true)
-
+                    if tree.progressValue > 0.99 {
+                        TextField("Search", text: $searchTerm, onCommit: fetch)
+                            .keyboardType(.namePhonePad)
+                            .disableAutocorrection(true)
+                    } else {
+                        ProgressBar(value: $tree.progressValue).frame(height: 10)
+                    }
                 }
 
                 Section(header: Text("Cities - \(arrayDisplayedCount) results")) {

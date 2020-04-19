@@ -22,6 +22,7 @@ class Tree: ObservableObject {
 
             for city in cities {
 
+                citiesCount += 1
                 if citiesCount % 1000 == 0 {
                     DispatchQueue.main.async {
                         self?.progressValue = Float(citiesCount) / Float(citiesAllCount)
@@ -68,8 +69,6 @@ class Tree: ObservableObject {
                         twoLetterNode?.add(child: threeLetterNode!)
                     }
                 }
-
-                citiesCount += 1
             }
 
             DispatchQueue.main.async {

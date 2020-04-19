@@ -14,13 +14,8 @@ class CityStore: ObservableObject {
     @Published private(set) var allCitiesArray = Bundle.main.decode([City].self, from: "cities.json").sorted(by: { $0.name < $1.name })
     @Published private(set) var isSearching = false
 
-
-
     private var treeBuilder: Tree?
     private var tree: Node?
-
-//    private(set) var citiesByLetter: [(String, [City])] = []
-//    private let latinAlphabet = "abcdefghijklmnopqrstuvwxyz"
 
     init(tree: Tree) {
         self.treeBuilder = tree
@@ -34,21 +29,6 @@ class CityStore: ObservableObject {
             print("tree built")
         })
     }
-
-//    private func mapAllCities() {
-//        var unfilteredCities: [(String, [City])] = []
-//
-//        latinAlphabet.forEach { char in
-//            let char = "\(char)"
-//            let subset = allCitiesArray.filter { $0.name.lowercased().hasPrefix(char) }
-//            unfilteredCities.append((char, subset))
-//        }
-//        citiesByLetter = unfilteredCities
-//    }
-//
-//    func splitInChunks() -> [(String, [City])] {
-//        return []
-//    }
 
     func fetch(matching query: String) {
         isSearching = true
