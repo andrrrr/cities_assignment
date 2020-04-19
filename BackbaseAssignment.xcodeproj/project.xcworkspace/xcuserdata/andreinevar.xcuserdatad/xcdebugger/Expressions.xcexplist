@@ -51,5 +51,13 @@
       <ContextState
          contextName = "closure #1 in closure #1 in CityStore.fetch(matching:):CityStore.swift">
       </ContextState>
+      <ContextState
+         contextName = "CityStore.buildTree():CityStore.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "tree">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
    </ContextStates>
 </VariablesViewState>

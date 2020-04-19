@@ -48,14 +48,6 @@ struct ContentView: View {
                             ForEach(cityStore.citiesFiltered) { city in
                                 Text("\(city.name), \(city.country)")
                             }
-//                            Button(action: loadMore) {
-//                                Text("")
-//                            }
-//                            .onAppear {
-//                                DispatchQueue.global(qos: .background).asyncAfter(deadline: DispatchTime(uptimeNanoseconds: 10)) {
-//                                    self.loadMore()
-//                                }
-//                            }
                         }
                     }
 
@@ -72,6 +64,26 @@ struct ContentView: View {
         cityStore.fetch(matching: searchTerm)
     }
 
+    private func debouncedFetch () {
+        debounce(interval: 200, queue: DispatchQueue.main, action: {
+            self.fetch()
+        })
+    }
+
+    private func debounce(interval: Int, queue: DispatchQueue, action: @escaping (() -> Void)) {
+        var lastFireTime = DispatchTime.now()
+        let dispatchDelay = DispatchTimeInterval.milliseconds(interval)
+        lastFireTime = DispatchTime.now()
+        let dispatchTime: DispatchTime = DispatchTime.now() + dispatchDelay
+
+        queue.asyncAfter(deadline: dispatchTime) {
+            let when: DispatchTime = lastFireTime + dispatchDelay
+            let now = DispatchTime.now()
+            if now.rawValue >= when.rawValue {
+                action()
+            }
+        }
+    }
 
     fileprivate func setNewRange(_ upperLimit: Int) {
         self.range = 0..<upperLimit
@@ -86,9 +98,7 @@ struct ContentView: View {
         setNewRange(min(upperLimit, arrayDisplayedCount))
     }
 
-    let debouncedFunction = SearchAlgorythm.debounce(interval: 200, queue: DispatchQueue.main, action: {
-        
-    })
+
 }
 
 struct ContentView_Previews: PreviewProvider {

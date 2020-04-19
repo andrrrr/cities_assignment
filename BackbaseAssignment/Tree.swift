@@ -10,38 +10,50 @@ import Foundation
 
 class Tree {
 
-    init(allCities: [City]) {
-        buildTree(allCities)
-    }
+    static func buildTree(_ cities: [City]) -> Node {
 
-    func buildTree(_ cities: [City]) {
-        let citiesSorted = cities.sorted(by: { $0.name < $1.name })
         let root = Node(letter: "", cities: [])
-        for city in citiesSorted {
-            let firstLetter = city.name[city.name.startIndex]
+        for city in cities {
+            let firstLetter = city.name[city.name.startIndex].lowercased()
             var firstLetterNode: Node? = nil
-            if root.search(letter: "\(firstLetter)") == nil {
+
+            if let firstLetterNodeFound = root.search(letter: "\(firstLetter)") {
+                firstLetterNode = firstLetterNodeFound
+            } else {
                 firstLetterNode = Node(letter: "\(firstLetter)")
                 root.add(child: firstLetterNode!)
             }
 
-            let twoLetters = city.name.index(city.name.startIndex, offsetBy: 2)
             var twoLetterNode: Node? = nil
-            if firstLetterNode?.search(letter: "\(twoLetters)") == nil {
-                twoLetterNode = Node(letter: "\(twoLetters)")
-                firstLetterNode?.add(child: twoLetterNode!)
+            if city.name.count > 1 {
+                let twoLetters = city.name.prefix(2).lowercased()
+
+                if let twoLetterNodeFound = firstLetterNode?.search(letter: "\(twoLetters)") {
+                    twoLetterNode = twoLetterNodeFound
+
+                } else {
+                    twoLetterNode = Node(letter: "\(twoLetters)")
+                    firstLetterNode?.add(child: twoLetterNode!)
+                }
             }
 
-            let threeLetters = city.name.index(city.name.startIndex, offsetBy: 3)
+
             var threeLetterNode: Node? = nil
-            if let threeLetterNodeFound = twoLetterNode?.search(letter: "\(threeLetters)") {
-                threeLetterNodeFound.addCities(city: city)
-            } else {
-                threeLetterNode = Node(letter: "\(threeLetters)")
-                threeLetterNode?.addCities(city: city)
-                twoLetterNode?.add(child: threeLetterNode!)
+            if city.name.count > 2 {
+                let threeLetters = city.name.prefix(3).lowercased()
+
+                if let threeLetterNodeFound = twoLetterNode?.search(letter: "\(threeLetters)") {
+                    threeLetterNode = threeLetterNodeFound
+                    threeLetterNodeFound.addCities(city: city)
+                } else {
+                    threeLetterNode = Node(letter: "\(threeLetters)")
+                    threeLetterNode?.addCities(city: city)
+                    twoLetterNode?.add(child: threeLetterNode!)
+                }
             }
         }
+
+        return root
 
     }
 }
@@ -70,15 +82,29 @@ class Node {
 }
 
 extension Node {
-  func search(letter: String) -> Node? {
-    if letter == self.letter {
-      return self
-    }
-    for child in children {
-      if let found = child.search(letter: letter) {
-        return found
-      }
-    }
-    return nil
+    func search(letter: String) -> Node? {
+        if letter == self.letter {
+            return self
+        }
+        for child in children {
+            if let found = child.search(letter: letter) {
+                return found
+            }
+        }
+        return nil
   }
+}
+
+extension Node {
+    func allCitiesUnder(letter: String) -> [City] {
+        if self.cities != nil {
+            return self.cities!
+        } else {
+            var citiesAccum = [City]()
+            for child in children {
+                citiesAccum += child.allCitiesUnder(letter: self.letter)
+            }
+            return citiesAccum
+        }
+    }
 }

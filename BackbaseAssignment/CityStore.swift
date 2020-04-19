@@ -14,11 +14,19 @@ class CityStore: ObservableObject {
     @Published private(set) var allCitiesArray = Bundle.main.decode([City].self, from: "cities.json").sorted(by: { $0.name < $1.name })
     @Published private(set) var isSearching = false
 
+    private var tree: Node?
+
     private(set) var citiesByLetter: [(String, [City])] = []
     private let latinAlphabet = "abcdefghijklmnopqrstuvwxyz"
 
     init() {
         mapAllCities()
+        buildTree()
+    }
+
+    private func buildTree() {
+        tree = Tree.buildTree(allCitiesArray)
+        print("tree built")
     }
 
     private func mapAllCities() {
@@ -55,22 +63,28 @@ class CityStore: ObservableObject {
             isSearching = false
             return
         }
-        let firstChar = searchTerm[searchTerm.startIndex]
 
-        var arrayToScan: [City]
-        if !previousSearchTerm.isEmpty && searchTerm.hasPrefix(previousSearchTerm) {
-            print("cache")
-            arrayToScan = citiesFiltered
-        } else {
-            print("letter array: \(firstChar) ")
-            arrayToScan = citiesByLetter.first(where:{$0.0 == "\(firstChar)"})?.1 ?? []
+        if let newArray = tree?.allCitiesUnder(letter: searchTerm) {
+            DispatchQueue.main.async {
+                handler(newArray)
+            }
         }
-        previousSearchTerm = searchTerm
-        let arrayFound = (searchTerm.count == 1) ? arrayToScan : arrayToScan.filter {$0.name.lowercased().hasPrefix(searchTerm)}
-
-        DispatchQueue.main.async {
-            handler(arrayFound)
-        }
+//        let firstChar = searchTerm[searchTerm.startIndex]
+//
+//        var arrayToScan: [City]
+//        if !previousSearchTerm.isEmpty && searchTerm.hasPrefix(previousSearchTerm) {
+//            print("cache")
+//            arrayToScan = citiesFiltered
+//        } else {
+//            print("letter array: \(firstChar) ")
+//            arrayToScan = citiesByLetter.first(where:{$0.0 == "\(firstChar)"})?.1 ?? []
+//        }
+//        previousSearchTerm = searchTerm
+//        let arrayFound = (searchTerm.count == 1) ? arrayToScan : arrayToScan.filter {$0.name.lowercased().hasPrefix(searchTerm)}
+//
+//        DispatchQueue.main.async {
+//            handler(arrayFound)
+//        }
     }
 }
 
