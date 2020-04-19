@@ -10,17 +10,21 @@ import SwiftUI
 
 struct ContentView: View {
 
+    @State private var progressValue: Float = 0.0
     @State private var searchTerm: String = ""
     @State var range: Range<Int> = 0..<9
     private let chunkSize = 9
 
     @EnvironmentObject var cityStore: CityStore
+    @EnvironmentObject var tree: Tree
+    
 
     var body: some View {
         NavigationView {
             Form {
                 Section {
 
+                    ProgressBar(value: $tree.progressValue).frame(height: 10)
                     TextField("Search", text: $searchTerm, onCommit: fetch)
                         .keyboardType(.namePhonePad)
                         .disableAutocorrection(true)
@@ -56,7 +60,19 @@ struct ContentView: View {
                 .onTapGesture {
                     UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
             }
-        }.onAppear(perform: fetch)
+        }
+        .onAppear(perform: fetch)
+        .onAppear(perform: startProgressBar)
+    }
+
+    func startProgressBar() {
+        for _ in 0...80 {
+            self.progressValue += 0.005
+        }
+    }
+
+    func resetProgressBar() {
+        self.progressValue = 0.0
     }
 
     private func fetch() {

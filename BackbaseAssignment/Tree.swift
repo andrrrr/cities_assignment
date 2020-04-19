@@ -8,15 +8,24 @@
 
 import Foundation
 
-class Tree {
+class Tree: ObservableObject {
 
-    static func buildTree(_ cities: [City], completed: @escaping (Node) -> Void)  {
+    @Published var progressValue: Float = 0.0
 
+    func buildTree(_ cities: [City], completed: @escaping (Node) -> Void)  {
+
+        let citiesAllCount = cities.count
+        var citiesCount = 0
         DispatchQueue.global(qos: .background).async {
 
 
             let root = Node(letter: "")
             for city in cities {
+
+                DispatchQueue.main.async {
+                    self.progressValue = Float(citiesCount) / Float(citiesAllCount)
+                }
+
                 let firstLetter = city.name[city.name.startIndex].lowercased()
                 var firstLetterNode: Node? = nil
 
@@ -54,6 +63,8 @@ class Tree {
                         twoLetterNode?.add(child: threeLetterNode!)
                     }
                 }
+
+                citiesCount += 1
             }
 
             DispatchQueue.main.async {

@@ -18,9 +18,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let windowScene = scene as? UIWindowScene {
 
             let window = UIWindow(windowScene: windowScene)
-            let store = CityStore()
+            let tree = Tree()
+            let store = CityStore(tree: tree)
             window.rootViewController = UIHostingController(
-                rootView: ContentView().environmentObject(store)
+                rootView: ContentView().environmentObject(store).environmentObject(tree)
             )
             self.window = window
             window.makeKeyAndVisible()

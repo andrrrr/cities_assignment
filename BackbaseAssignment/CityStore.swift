@@ -14,22 +14,25 @@ class CityStore: ObservableObject {
     @Published private(set) var allCitiesArray = Bundle.main.decode([City].self, from: "cities.json").sorted(by: { $0.name < $1.name })
     @Published private(set) var isSearching = false
 
+
+
+    private var treeBuilder: Tree?
     private var tree: Node?
 
     private(set) var citiesByLetter: [(String, [City])] = []
     private let latinAlphabet = "abcdefghijklmnopqrstuvwxyz"
 
-    init() {
-        //mapAllCities()
+    init(tree: Tree) {
+        self.treeBuilder = tree
         buildTree()
     }
 
     private func buildTree() {
-        Tree.buildTree(allCitiesArray, completed: { tree in
+        print("tree start building")
+        treeBuilder?.buildTree(allCitiesArray, completed: { tree in
             self.tree = tree
             print("tree built")
         })
-
     }
 
 //    private func mapAllCities() {
