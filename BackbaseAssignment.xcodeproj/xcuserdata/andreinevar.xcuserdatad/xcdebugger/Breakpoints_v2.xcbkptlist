@@ -91,102 +91,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "3D79B82D-6936-4E72-8055-D99BB1C62351"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BackbaseAssignment/CityStore.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "64"
-            endingLineNumber = "64"
-            landmarkName = "search(matching:handler:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "3D79B82D-6936-4E72-8055-D99BB1C62351 - 86ce4a35bff563e"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "BackbaseAssignment.CityStore.search(matching: Swift.String, handler: (Swift.Array&lt;BackbaseAssignment.City&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "BackbaseAssignment"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/andreinevar/Documents/Learning/BackbaseAssignment/BackbaseAssignment/BackbaseAssignment/CityStore.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "54"
-                  endingLineNumber = "54"
-                  offsetFromSymbolStart = "724">
-               </Location>
-               <Location
-                  uuid = "3D79B82D-6936-4E72-8055-D99BB1C62351 - 86bb1100c1ceb4bc"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 ((Swift.String, Swift.Array&lt;BackbaseAssignment.City&gt;)) -&gt; Swift.Bool in BackbaseAssignment.CityStore.search(matching: Swift.String, handler: (Swift.Array&lt;BackbaseAssignment.City&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "BackbaseAssignment"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/andreinevar/Documents/Learning/BackbaseAssignment/BackbaseAssignment/BackbaseAssignment/CityStore.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "54"
-                  endingLineNumber = "54"
-                  offsetFromSymbolStart = "80">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "FB5D0475-33FF-494B-9604-E308E54E73FD"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BackbaseAssignment/CityStore.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "67"
-            endingLineNumber = "67"
-            landmarkName = "search(matching:handler:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "156E58DA-944A-4E34-BDF4-718B19CFC53F"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BackbaseAssignment/CityStore.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
-            landmarkName = "search(matching:handler:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "50751034-9B39-4999-9F99-66AC1BB47FD8"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BackbaseAssignment/CityStore.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
-            landmarkName = "search(matching:handler:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "4FD67984-48FF-4877-8E26-7196C7E50A97"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -194,10 +98,10 @@
             filePath = "BackbaseAssignment/CityStore.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
-            landmarkName = "fetch(matching:)"
-            landmarkType = "7">
+            startingLineNumber = "43"
+            endingLineNumber = "43"
+            landmarkName = "CityStore"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

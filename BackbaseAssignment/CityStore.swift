@@ -13,13 +13,9 @@ class CityStore: ObservableObject {
     @Published private(set) var citiesFiltered: [City] = []
     @Published private(set) var citiesAll: [(String, [City])] = []
 
-    private var cities = Bundle.main.decode([City].self, from: "cities.json").sorted(by: { $0.name < $1.name })
+    var allCitiesArray = Bundle.main.decode([City].self, from: "cities.json").sorted(by: { $0.name < $1.name })
 
     private let latinAlphabet = "abcdefghijklmnopqrstuvwxyz"
-
-    var allCities: [City] {
-        return citiesAll.flatMap { $0.1 }
-    }
 
     init() {
         mapAllCities()
@@ -30,7 +26,7 @@ class CityStore: ObservableObject {
 
         latinAlphabet.forEach { char in
             let char = "\(char)"
-            let subset = cities.filter { $0.name.lowercased().hasPrefix(char) }
+            let subset = allCitiesArray.filter { $0.name.lowercased().hasPrefix(char) }
             unfilteredCities.append((char, subset))
         }
         citiesAll = unfilteredCities
@@ -41,7 +37,7 @@ class CityStore: ObservableObject {
     }
 
     func fetch(matching query: String) {
-        search(matching: query) { [weak self] result in
+        search(matching: query.lowercased()) { [weak self] result in
             self?.citiesFiltered = []
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
                  self?.citiesFiltered = result
@@ -52,21 +48,13 @@ class CityStore: ObservableObject {
     func search(matching searchTerm: String, handler: @escaping ([City]) -> Void) {
         guard !searchTerm.isEmpty else { return }
         let firstChar = searchTerm[searchTerm.startIndex]
-        //let firstChar = Array(searchTerm)[0].lowercased
-        for tuple in citiesAll {
-            if tuple.0 == "\(firstChar)" {
+        for arrayPerLetter in citiesAll {
+            if arrayPerLetter.0 == "\(firstChar)" {
                 DispatchQueue.main.async {
-                    handler(tuple.1)
+                    handler(arrayPerLetter.1.filter {$0.name.lowercased().hasPrefix(searchTerm)})
                 }
-
             }
         }
-        let thisArray = citiesAll.filter { $0.0 == "\(firstChar)" }
-
-        //let citiesSearched = self.citiesAll.filter { $0.0.contains(searchTerm[0].lowercased) }
-//        DispatchQueue.main.async {
-//            //handler(thisArray)
-//        }
     }
 }
 

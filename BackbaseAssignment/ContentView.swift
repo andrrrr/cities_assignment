@@ -10,7 +10,6 @@ import SwiftUI
 
 struct ContentView: View {
 
-    @State private var cities = Bundle.main.decode([City].self, from: "cities.json").sorted(by: { $0.name < $1.name })
     @State private var searchTerm: String = ""
     @State var range: Range<Int> = 0..<20
     private let chunkSize = 20
@@ -31,9 +30,9 @@ struct ContentView: View {
                 Section(header: Text("Cities")) {
 
                     List {
-//                        if searchTerm.isEmpty {
+                        if searchTerm.isEmpty {
                             ForEach(range, id: \.self) {
-                                Text("\(self.cities[$0].name), \(self.cities[$0].country)")
+                                Text("\(self.cityStore.allCitiesArray[$0].name), \(self.cityStore.allCitiesArray[$0].country)")
                             }
                             Button(action: loadMore) {
                                 Text("")
@@ -44,12 +43,12 @@ struct ContentView: View {
                                 }
                             }
 
-//                        } else {
-//                            ForEach(cityStore.cities) { city in
-//                                Text("\(city.name), \(city.country)")
-//                            }
-//
-//                        }
+                        } else {
+                            ForEach(cityStore.citiesFiltered) { city in
+                                Text("\(city.name), \(city.country)")
+                            }
+
+                        }
                     }
                 }
 
@@ -58,13 +57,9 @@ struct ContentView: View {
                 UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
             }
         }.onAppear(perform: fetch)
-
     }
 
-    
-
     private func fetch() {
-        //print(cityStore.citiesUnfiltered.count)
         cityStore.fetch(matching: searchTerm)
     }
 
@@ -74,13 +69,9 @@ struct ContentView: View {
     }
 
     func loadMore() {
-        if searchTerm.isEmpty {
-            var upperLimit = self.range.upperBound + self.chunkSize
-//            if cityStore.citiesUnfiltered.count < upperLimit {
-//                upperLimit = cityStore.citiesUnfiltered.count
-//            }
-            setNewRange(upperLimit)
-        }
+        let arrayDisplayedCount = (searchTerm.isEmpty) ? cityStore.allCitiesArray.count : cityStore.citiesFiltered.count
+        let upperLimit = self.range.upperBound + self.chunkSize
+        setNewRange(min(upperLimit, arrayDisplayedCount))
     }
 
     let debouncedFunction = SearchAlgorythm.debounce(interval: 200, queue: DispatchQueue.main, action: {
