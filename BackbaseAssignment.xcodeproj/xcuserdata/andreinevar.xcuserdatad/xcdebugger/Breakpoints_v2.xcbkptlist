@@ -134,38 +134,6 @@
             endingLineNumber = "66"
             landmarkName = "search(matching:handler:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "77DBCF0D-6321-4B60-AB2C-671F9170A543 - 77282f86f9d1fb10"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "BackbaseAssignment.CityStore.(search in _CE4C492D9D987E6EF442D87E5EAB0559)(matching: Swift.String, handler: (Swift.Array&lt;BackbaseAssignment.City&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "BackbaseAssignment"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/andreinevar/Documents/Learning/BackbaseAssignment/BackbaseAssignment/BackbaseAssignment/CityStore.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "64"
-                  endingLineNumber = "64"
-                  offsetFromSymbolStart = "740">
-               </Location>
-               <Location
-                  uuid = "77DBCF0D-6321-4B60-AB2C-671F9170A543 - d692edd1500718d8"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 ((Swift.String, Swift.Array&lt;BackbaseAssignment.City&gt;)) -&gt; Swift.Bool in BackbaseAssignment.CityStore.(search in _CE4C492D9D987E6EF442D87E5EAB0559)(matching: Swift.String, handler: (Swift.Array&lt;BackbaseAssignment.City&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "BackbaseAssignment"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/andreinevar/Documents/Learning/BackbaseAssignment/BackbaseAssignment/BackbaseAssignment/CityStore.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "64"
-                  endingLineNumber = "64"
-                  offsetFromSymbolStart = "80">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
