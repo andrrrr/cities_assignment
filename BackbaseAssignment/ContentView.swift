@@ -57,7 +57,6 @@ struct ContentView: View {
 //                                VStack {
                                     Text("\(city.name), \(city.country)").fontWeight(.bold)
 //                                    Text("\(city.coord.lat) - \(city.coord.lon)").fontWeight(.regular)
-//
 //                                }
                             }
                         }
