@@ -47,16 +47,19 @@ class CityStore: ObservableObject {
             isSearching = false
             return
         }
-//        var searchThis = ""
-//
-//        if searchTerm.count > 3 {
-//
-//        }
+        var searchThis = searchTerm
+        var needToFilter = false
+        if searchTerm.count > 3 {
+            searchThis = String(searchTerm.prefix(3))
+            needToFilter = true
+        }
 
-        if let searchNode = tree?.search(letter: searchTerm) {
-            let newArray = searchNode.allCitiesUnder(letter: searchTerm)
-            DispatchQueue.main.async {
-                handler(newArray)
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            if let searchNode = self?.tree?.search(letter: searchThis) {
+                let array = (!needToFilter) ? searchNode.allCitiesUnder(letter: searchThis) : searchNode.allCitiesUnder(letter: searchThis).filter {$0.name.lowercased().hasPrefix(searchTerm)}
+                DispatchQueue.main.async {
+                    handler(array)
+                }
             }
         }
 
