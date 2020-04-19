@@ -20,29 +20,32 @@ class CityStore: ObservableObject {
     private let latinAlphabet = "abcdefghijklmnopqrstuvwxyz"
 
     init() {
-        mapAllCities()
+        //mapAllCities()
         buildTree()
     }
 
     private func buildTree() {
-        tree = Tree.buildTree(allCitiesArray)
-        print("tree built")
+        Tree.buildTree(allCitiesArray, completed: { tree in
+            self.tree = tree
+            print("tree built")
+        })
+
     }
 
-    private func mapAllCities() {
-        var unfilteredCities: [(String, [City])] = []
-
-        latinAlphabet.forEach { char in
-            let char = "\(char)"
-            let subset = allCitiesArray.filter { $0.name.lowercased().hasPrefix(char) }
-            unfilteredCities.append((char, subset))
-        }
-        citiesByLetter = unfilteredCities
-    }
-
-    func splitInChunks() -> [(String, [City])] {
-        return []
-    }
+//    private func mapAllCities() {
+//        var unfilteredCities: [(String, [City])] = []
+//
+//        latinAlphabet.forEach { char in
+//            let char = "\(char)"
+//            let subset = allCitiesArray.filter { $0.name.lowercased().hasPrefix(char) }
+//            unfilteredCities.append((char, subset))
+//        }
+//        citiesByLetter = unfilteredCities
+//    }
+//
+//    func splitInChunks() -> [(String, [City])] {
+//        return []
+//    }
 
     func fetch(matching query: String) {
         isSearching = true
@@ -56,19 +59,21 @@ class CityStore: ObservableObject {
 
     private var previousSearchTerm = ""
 
-
-    // search uses caching, 
     private func search(matching searchTerm: String, handler: @escaping ([City]) -> Void) {
         guard !searchTerm.isEmpty else {
             isSearching = false
             return
         }
 
-        if let newArray = tree?.allCitiesUnder(letter: searchTerm) {
+        if let searchNode = tree?.search(letter: searchTerm) {
+            let newArray = searchNode.allCitiesUnder(letter: searchTerm)
             DispatchQueue.main.async {
                 handler(newArray)
             }
+
         }
+
+
 //        let firstChar = searchTerm[searchTerm.startIndex]
 //
 //        var arrayToScan: [City]

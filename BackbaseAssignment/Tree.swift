@@ -10,51 +10,56 @@ import Foundation
 
 class Tree {
 
-    static func buildTree(_ cities: [City]) -> Node {
+    static func buildTree(_ cities: [City], completed: @escaping (Node) -> Void)  {
 
-        let root = Node(letter: "", cities: [])
-        for city in cities {
-            let firstLetter = city.name[city.name.startIndex].lowercased()
-            var firstLetterNode: Node? = nil
+        DispatchQueue.global(qos: .background).async {
 
-            if let firstLetterNodeFound = root.search(letter: "\(firstLetter)") {
-                firstLetterNode = firstLetterNodeFound
-            } else {
-                firstLetterNode = Node(letter: "\(firstLetter)")
-                root.add(child: firstLetterNode!)
-            }
 
-            var twoLetterNode: Node? = nil
-            if city.name.count > 1 {
-                let twoLetters = city.name.prefix(2).lowercased()
+            let root = Node(letter: "")
+            for city in cities {
+                let firstLetter = city.name[city.name.startIndex].lowercased()
+                var firstLetterNode: Node? = nil
 
-                if let twoLetterNodeFound = firstLetterNode?.search(letter: "\(twoLetters)") {
-                    twoLetterNode = twoLetterNodeFound
-
+                if let firstLetterNodeFound = root.search(letter: "\(firstLetter)") {
+                    firstLetterNode = firstLetterNodeFound
                 } else {
-                    twoLetterNode = Node(letter: "\(twoLetters)")
-                    firstLetterNode?.add(child: twoLetterNode!)
+                    firstLetterNode = Node(letter: "\(firstLetter)")
+                    root.add(child: firstLetterNode!)
+                }
+
+                var twoLetterNode: Node? = nil
+                if city.name.count > 1 {
+                    let twoLetters = city.name.prefix(2).lowercased()
+
+                    if let twoLetterNodeFound = firstLetterNode?.search(letter: "\(twoLetters)") {
+                        twoLetterNode = twoLetterNodeFound
+
+                    } else {
+                        twoLetterNode = Node(letter: "\(twoLetters)")
+                        firstLetterNode?.add(child: twoLetterNode!)
+                    }
+                }
+
+
+                var threeLetterNode: Node? = nil
+                if city.name.count > 2 {
+                    let threeLetters = city.name.prefix(3).lowercased()
+
+                    if let threeLetterNodeFound = twoLetterNode?.search(letter: "\(threeLetters)") {
+                        threeLetterNode = threeLetterNodeFound
+                        threeLetterNodeFound.addCities(city: city)
+                    } else {
+                        threeLetterNode = Node(letter: "\(threeLetters)")
+                        threeLetterNode?.addCities(city: city)
+                        twoLetterNode?.add(child: threeLetterNode!)
+                    }
                 }
             }
 
-
-            var threeLetterNode: Node? = nil
-            if city.name.count > 2 {
-                let threeLetters = city.name.prefix(3).lowercased()
-
-                if let threeLetterNodeFound = twoLetterNode?.search(letter: "\(threeLetters)") {
-                    threeLetterNode = threeLetterNodeFound
-                    threeLetterNodeFound.addCities(city: city)
-                } else {
-                    threeLetterNode = Node(letter: "\(threeLetters)")
-                    threeLetterNode?.addCities(city: city)
-                    twoLetterNode?.add(child: threeLetterNode!)
-                }
+            DispatchQueue.main.async {
+                completed (root)
             }
         }
-
-        return root
-
     }
 }
 
