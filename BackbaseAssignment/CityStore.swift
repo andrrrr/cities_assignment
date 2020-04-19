@@ -19,8 +19,8 @@ class CityStore: ObservableObject {
     private var treeBuilder: Tree?
     private var tree: Node?
 
-    private(set) var citiesByLetter: [(String, [City])] = []
-    private let latinAlphabet = "abcdefghijklmnopqrstuvwxyz"
+//    private(set) var citiesByLetter: [(String, [City])] = []
+//    private let latinAlphabet = "abcdefghijklmnopqrstuvwxyz"
 
     init(tree: Tree) {
         self.treeBuilder = tree
@@ -67,13 +67,17 @@ class CityStore: ObservableObject {
             isSearching = false
             return
         }
+//        var searchThis = ""
+//
+//        if searchTerm.count > 3 {
+//
+//        }
 
         if let searchNode = tree?.search(letter: searchTerm) {
             let newArray = searchNode.allCitiesUnder(letter: searchTerm)
             DispatchQueue.main.async {
                 handler(newArray)
             }
-
         }
 
 

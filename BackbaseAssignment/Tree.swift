@@ -16,22 +16,25 @@ class Tree: ObservableObject {
 
         let citiesAllCount = cities.count
         var citiesCount = 0
-        DispatchQueue.global(qos: .background).async {
-
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
 
             let root = Node(letter: "")
+
             for city in cities {
 
-                DispatchQueue.main.async {
-                    self.progressValue = Float(citiesCount) / Float(citiesAllCount)
+                if citiesCount % 1000 == 0 {
+                    DispatchQueue.main.async {
+                        self?.progressValue = Float(citiesCount) / Float(citiesAllCount)
+                    }
                 }
 
                 let firstLetter = city.name[city.name.startIndex].lowercased()
                 var firstLetterNode: Node? = nil
 
-                if let firstLetterNodeFound = root.search(letter: "\(firstLetter)") {
+                if let firstLetterNodeFound = root.searchChildren(letter: "\(firstLetter)") {
                     firstLetterNode = firstLetterNodeFound
                 } else {
+                    print(firstLetter)
                     firstLetterNode = Node(letter: "\(firstLetter)")
                     root.add(child: firstLetterNode!)
                 }
@@ -40,10 +43,11 @@ class Tree: ObservableObject {
                 if city.name.count > 1 {
                     let twoLetters = city.name.prefix(2).lowercased()
 
-                    if let twoLetterNodeFound = firstLetterNode?.search(letter: "\(twoLetters)") {
+                    if let twoLetterNodeFound = firstLetterNode?.searchChildren(letter: "\(twoLetters)") {
                         twoLetterNode = twoLetterNodeFound
 
                     } else {
+                        print(twoLetters)
                         twoLetterNode = Node(letter: "\(twoLetters)")
                         firstLetterNode?.add(child: twoLetterNode!)
                     }
@@ -54,10 +58,11 @@ class Tree: ObservableObject {
                 if city.name.count > 2 {
                     let threeLetters = city.name.prefix(3).lowercased()
 
-                    if let threeLetterNodeFound = twoLetterNode?.search(letter: "\(threeLetters)") {
+                    if let threeLetterNodeFound = twoLetterNode?.searchChildren(letter: "\(threeLetters)") {
                         threeLetterNode = threeLetterNodeFound
                         threeLetterNodeFound.addCities(city: city)
                     } else {
+                        print(threeLetters)
                         threeLetterNode = Node(letter: "\(threeLetters)")
                         threeLetterNode?.addCities(city: city)
                         twoLetterNode?.add(child: threeLetterNode!)
@@ -98,16 +103,21 @@ class Node {
 }
 
 extension Node {
-    func search(letter: String) -> Node? {
-        if letter == self.letter {
-            return self
-        }
+    func searchChildren(letter: String) -> Node? {
         for child in children {
             if let found = child.search(letter: letter) {
                 return found
             }
         }
         return nil
+    }
+
+    func search(letter: String) -> Node? {
+        if letter == self.letter {
+            return self
+        }
+        return searchChildren(letter: letter)
+
   }
 }
 
