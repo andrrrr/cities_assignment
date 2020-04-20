@@ -24,7 +24,7 @@ struct ContentView: View {
             Form {
                 Section {
                     if tree.progressValue > 0.99 {
-                        TextField("Search", text: $searchTerm, onCommit: fetch)
+                        TextField("Search", text: $searchTerm, onCommit: debouncedFetch)
                             .keyboardType(.namePhonePad)
                             .disableAutocorrection(true)
                     } else {

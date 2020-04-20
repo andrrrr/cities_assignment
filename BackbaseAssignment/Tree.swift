@@ -18,11 +18,10 @@ class Tree: ObservableObject {
         var citiesCount = 0
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
 
-            let root = Node(letter: "")
+            let root = Node(letter: "", range: 0..<citiesAllCount)
 
             for city in cities {
 
-                citiesCount += 1
                 if citiesCount % 1000 == 0 {
                     DispatchQueue.main.async {
                         self?.progressValue = Float(citiesCount) / Float(citiesAllCount)
@@ -34,9 +33,10 @@ class Tree: ObservableObject {
 
                 if let firstLetterNodeFound = root.searchChildren(letter: "\(firstLetter)") {
                     firstLetterNode = firstLetterNodeFound
+                    firstLetterNode?.newUpperBound(citiesCount+1)
                 } else {
                     print(firstLetter)
-                    firstLetterNode = Node(letter: "\(firstLetter)")
+                    firstLetterNode = Node(letter: "\(firstLetter)", range: citiesCount..<(citiesCount + 1))
                     root.add(child: firstLetterNode!)
                 }
 
@@ -46,14 +46,13 @@ class Tree: ObservableObject {
 
                     if let twoLetterNodeFound = firstLetterNode?.searchChildren(letter: "\(twoLetters)") {
                         twoLetterNode = twoLetterNodeFound
-
+                        twoLetterNode?.newUpperBound(citiesCount+1)
                     } else {
                         print(twoLetters)
-                        twoLetterNode = Node(letter: "\(twoLetters)")
+                        twoLetterNode = Node(letter: "\(twoLetters)", range: citiesCount..<(citiesCount + 1))
                         firstLetterNode?.add(child: twoLetterNode!)
                     }
                 }
-
 
                 var threeLetterNode: Node? = nil
                 if city.name.count > 2 {
@@ -61,14 +60,15 @@ class Tree: ObservableObject {
 
                     if let threeLetterNodeFound = twoLetterNode?.searchChildren(letter: "\(threeLetters)") {
                         threeLetterNode = threeLetterNodeFound
-                        threeLetterNodeFound.addCities(city: city)
+                        threeLetterNode?.newUpperBound(citiesCount+1)
                     } else {
                         print(threeLetters)
-                        threeLetterNode = Node(letter: "\(threeLetters)")
-                        threeLetterNode?.addCities(city: city)
+                        threeLetterNode = Node(letter: "\(threeLetters)", range: citiesCount..<(citiesCount + 1))
                         twoLetterNode?.add(child: threeLetterNode!)
                     }
                 }
+
+                citiesCount += 1
             }
 
             DispatchQueue.main.async {
@@ -80,24 +80,20 @@ class Tree: ObservableObject {
 
 class Node {
     var letter: String
-    var cities: [City]?
+    var range: Range<Int>
     var children: [Node] = []
 
-    init(letter: String, cities: [City]? = nil) {
+    init(letter: String, range: Range<Int>) {
         self.letter = letter
-        self.cities = cities
+        self.range = range
     }
 
     func add(child: Node) {
         children.append(child)
     }
 
-    func addCities(city: City) {
-        if cities != nil {
-            cities!.append(city)
-        } else {
-            cities = [city]
-        }
+    func newUpperBound(_ newUpperBound: Int) {
+        range = range.upperBound..<newUpperBound
     }
 }
 
@@ -120,16 +116,3 @@ extension Node {
   }
 }
 
-extension Node {
-    func allCitiesUnder(letter: String) -> [City] {
-        if self.cities != nil {
-            return self.cities!
-        } else {
-            var citiesAccum = [City]()
-            for child in children {
-                citiesAccum += child.allCitiesUnder(letter: self.letter)
-            }
-            return citiesAccum
-        }
-    }
-}

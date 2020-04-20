@@ -66,8 +66,8 @@ class CityStore: ObservableObject {
         } else {
             print("new search: \(searchTerm) ")
             DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-                if let searchNode = self?.tree?.search(letter: searchThis) {
-                    let array = (!needToFilter) ? searchNode.allCitiesUnder(letter: searchThis) : searchNode.allCitiesUnder(letter: searchThis).filter {$0.name.lowercased().hasPrefix(searchTerm)}
+                if let searchNode = self?.tree?.search(letter: searchThis), let arraySlice = self?.allCitiesArray[searchNode.range] {
+                    let array = (!needToFilter) ? Array<City>(arraySlice) : Array<City>(arraySlice).filter {$0.name.lowercased().hasPrefix(searchTerm)}
                     DispatchQueue.main.async {
                         handler(array)
                     }
