@@ -11,21 +11,19 @@ import SwiftUI
 struct ContentView: View {
 
     @State private var progressValue: Float = 0.0
-    @State private var searchTerm: String = ""
 
     private let chunkSize = 20
-    @State var rangeFiltered: Range<Int> = 0..<20
 
     @EnvironmentObject var cityStore: CityStore
     @EnvironmentObject var tree: Tree
-    
 
     var body: some View {
+
         NavigationView {
             Form {
                 Section {
                     if tree.progressValue > 0.99 {
-                        TextField("Search", text: $searchTerm, onCommit: debouncedFetch)
+                        TextField("Search", text: $cityStore.searchTerm, onCommit: debouncedFetch)
                             .keyboardType(.namePhonePad)
                             .disableAutocorrection(true)
                     } else {
@@ -60,11 +58,11 @@ struct ContentView: View {
             .onTapGesture { UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil) }
         }
         .onAppear(perform: fetch)
+
     }
 
     private func fetch() {
-        print("fetch: \(searchTerm)")
-        cityStore.fetch(matching: searchTerm)
+        cityStore.fetch(matching: cityStore.searchTerm)
     }
 
     private func debouncedFetch () {
@@ -88,15 +86,8 @@ struct ContentView: View {
         }
     }
 
-
-
     func loadMore() {
         cityStore.loadMore(chunkSize)
-//        if rangeFiltered.lowerBound != cityStore.citiesFilteredReducedRange.lowerBound {
-//            rangeFiltered = cityStore.citiesFilteredReducedRange.lowerBound..<cityStore.citiesFilteredReducedRange.upperBound
-//        }
-//        let upperLimit = cityStore.citiesFilteredReducedRange.upperBound + chunkSize
-//        cityStore.citiesFilteredReducedRange = cityStore.citiesFilteredReducedRange.lowerBound..<(min(upperLimit, cityStore.citiesFilteredFullRange.upperBound))
     }
 }
 

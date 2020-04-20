@@ -91,22 +91,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "251968D3-0676-4387-A9AD-18490A7770EC"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BackbaseAssignment/ContentView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "99"
-            endingLineNumber = "99"
-            landmarkName = "loadMore()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "AB6E8B1B-820B-427E-BA0C-4D39EEA494F5"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -114,42 +98,26 @@
             filePath = "BackbaseAssignment/CityStore.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "122"
-            endingLineNumber = "122"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
             landmarkName = "search(matching:handler:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "AB6E8B1B-820B-427E-BA0C-4D39EEA494F5 - 485d5370bd1a048c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "function signature specialization &lt;Arg[1] = Value Promoted from Box, Arg[2] = Value Promoted from Box&gt; of closure #1 () -&gt; () in BackbaseAssignment.CityStore.(search in _CE4C492D9D987E6EF442D87E5EAB0559)(matching: Swift.String, handler: (Swift.Range&lt;Swift.Int&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "BackbaseAssignment"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/andreinevar/Documents/Learning/BackbaseAssignment/BackbaseAssignment/BackbaseAssignment/CityStore.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "132"
-                  endingLineNumber = "132"
-                  offsetFromSymbolStart = "1176">
-               </Location>
-               <Location
-                  uuid = "AB6E8B1B-820B-427E-BA0C-4D39EEA494F5 - cbeb4264369d0d53"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Int) -&gt; Swift.Optional&lt;Swift.Bool&gt; in closure #1 () -&gt; () in BackbaseAssignment.CityStore.(search in _CE4C492D9D987E6EF442D87E5EAB0559)(matching: Swift.String, handler: (Swift.Range&lt;Swift.Int&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "BackbaseAssignment"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/andreinevar/Documents/Learning/BackbaseAssignment/BackbaseAssignment/BackbaseAssignment/CityStore.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "122"
-                  endingLineNumber = "122"
-                  offsetFromSymbolStart = "132">
-               </Location>
-            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "68A8A3A6-24D7-4B51-A469-B77347C9AAF4"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BackbaseAssignment/ContentView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "69"
+            endingLineNumber = "69"
+            landmarkName = "debouncedFetch()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

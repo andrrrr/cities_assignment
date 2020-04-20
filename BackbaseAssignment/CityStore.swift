@@ -16,6 +16,12 @@ class CityStore: ObservableObject {
     @Published private(set) var citiesFilteredReducedRange: Range<Int> = 0..<20
     @Published private(set) var citiesFilteredFullRange: Range<Int> = 0..<20
 
+    @Published var searchTerm: String = "" {
+        didSet {
+            fetch(matching: self.searchTerm)
+        }
+    }
+
     private var treeBuilder: Tree?
     private var tree: Node?
 
@@ -25,11 +31,9 @@ class CityStore: ObservableObject {
     }
 
     private func buildTree() {
-        print("tree start building")
         citiesFilteredFullRange = 0..<allCitiesArray.count
         treeBuilder?.buildTree(allCitiesArray, completed: { tree in
             self.tree = tree
-            print("tree built")
         })
     }
 
@@ -51,53 +55,12 @@ class CityStore: ObservableObject {
         }
     }
 
-
     func loadMore(_ chunkSize: Int) {
         let upperLimit = citiesFilteredReducedRange.upperBound + chunkSize
         DispatchQueue.main.async {
             self.citiesFilteredReducedRange = self.citiesFilteredReducedRange.lowerBound..<(min(upperLimit, self.citiesFilteredFullRange.upperBound))
         }
     }
-
-    private var previousSearchTerm = ""
-
-//    private func search(matching searchTerm: String, handler: @escaping ([City]) -> Void) {
-//        guard !searchTerm.isEmpty else {
-//            isSearching = false
-//            return
-//        }
-//        var searchThis = searchTerm
-//        var needToFilter = false
-//        if searchTerm.count > 3 {
-//            searchThis = String(searchTerm.prefix(3))
-//            needToFilter = true
-//        }
-//
-//        if !previousSearchTerm.isEmpty && searchTerm.hasPrefix(previousSearchTerm) {
-//            print("cache")
-//            DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-//                if let array = (!needToFilter) ? self?.citiesFiltered : self?.citiesFiltered.filter({$0.name.lowercased().hasPrefix(searchTerm)}) {
-//                    DispatchQueue.main.async {
-//                        handler(array)
-//                    }
-//                }
-//            }
-//        } else {
-//            print("new search: \(searchTerm) ")
-//            DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-//                if let searchNode = self?.tree?.search(letter: searchThis), let arraySlice = self?.allCitiesArray[searchNode.range] {
-//                    let array = (!needToFilter) ? Array<City>(arraySlice) : Array<City>(arraySlice).filter ({$0.name.lowercased().hasPrefix(searchTerm)})
-//                    DispatchQueue.main.async {
-//                        handler(array)
-//                    }
-//                }
-//            }
-//        }
-//        previousSearchTerm = searchTerm
-//    }
-
-
-    
 
     private func search(matching searchTerm: String, handler: @escaping (Range<Int>) -> Void) {
 
@@ -108,36 +71,29 @@ class CityStore: ObservableObject {
             needToFilter = true
         }
 
-            DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-                if let searchNode = self?.tree?.search(letter: searchThis) {
-                    if needToFilter {
-                        var newRanges = [Int]()
-                        for number in searchNode.range {
-                            if let match = self?.allCitiesArray[number].name.lowercased().hasPrefix(searchTerm), match == true {
-                                newRanges.append(number)
-                            }
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            if let searchNode = self?.tree?.search(letter: searchThis) {
+                if needToFilter {
+                    var newRanges = [Int]()
+                    for number in searchNode.range {
+                        if let match = self?.allCitiesArray[number].name.lowercased().hasPrefix(searchTerm), match == true {
+                            newRanges.append(number)
                         }
-                        if let minimum = newRanges.min(), let maximum = newRanges.max() {
-                            DispatchQueue.main.async {
-                                handler((minimum)..<(maximum))
-                            }
-                        }
-                    } else {
+                    }
+                    if let minimum = newRanges.min(), let maximum = newRanges.max() {
                         DispatchQueue.main.async {
-                            handler(searchNode.range)
+                            handler((minimum)..<(maximum))
                         }
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        handler(searchNode.range)
                     }
                 }
             }
+        }
     }
 }
-
-extension Array where Element: Equatable {
-    func indexes(of element: Element) -> [Int] {
-        return self.enumerated().filter({ element == $0.element }).map({ $0.offset })
-    }
-}
-
 
 extension Bundle {
     func decode<T: Decodable>(_ type: T.Type, from file: String, dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .deferredToDate, keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys) -> T {
