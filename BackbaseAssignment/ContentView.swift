@@ -12,9 +12,8 @@ struct ContentView: View {
 
     @State private var progressValue: Float = 0.0
     @State private var searchTerm: String = ""
-    @State var range: Range<Int> = 0..<20
-    private let chunkSize = 20
 
+    private let chunkSize = 20
     @State var rangeFiltered: Range<Int> = 0..<20
 
     @EnvironmentObject var cityStore: CityStore
@@ -37,21 +36,21 @@ struct ContentView: View {
                     }
                 }
 
-                Section(header: Text("Cities - \(arrayDisplayedCount) results")) {
+                Section(header: Text("Cities - \(cityStore.citiesFilteredFullRange.upperBound - cityStore.citiesFilteredFullRange.lowerBound) results")) {
 
                     List {
-                        ForEach(rangeFiltered, id: \.self) { number in
+                        ForEach(cityStore.citiesFilteredReducedRange, id: \.self) { number in
                             VStack(alignment: .leading) {
                                 Text("\(self.cityStore.allCitiesArray[number].name), \(self.cityStore.allCitiesArray[number].country)")
                                 Text("lat:\(self.cityStore.allCitiesArray[number].coord.lat)  lon:\(self.cityStore.allCitiesArray[number].coord.lon)").font(.footnote).foregroundColor(.gray)
                             }
                         }
-                        Button(action: loadMoreFiltered) {
+                        Button(action: loadMore) {
                             Text("")
                         }
                         .onAppear {
                             DispatchQueue.global(qos: .background).asyncAfter(deadline: DispatchTime(uptimeNanoseconds: 10)) {
-                                self.loadMoreFiltered()
+                                self.loadMore()
                             }
                         }
                     }
@@ -60,7 +59,7 @@ struct ContentView: View {
             .navigationBarTitle("City list")
             .onTapGesture { UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil) }
         }
-        .onAppear(perform: debouncedFetch)
+        .onAppear(perform: fetch)
     }
 
     private func fetch() {
@@ -89,28 +88,15 @@ struct ContentView: View {
         }
     }
 
-    fileprivate func setNewRange(_ upperLimit: Int) {
-        self.range = 0..<upperLimit
-    }
 
-    private var arrayDisplayedCount: Int {
-        return (searchTerm.isEmpty) ? cityStore.allCitiesArray.count : cityStore.citiesFiltered.count
-    }
 
     func loadMore() {
-        let upperLimit = range.upperBound + chunkSize
-        setNewRange(min(upperLimit, arrayDisplayedCount))
-    }
-
-
-
-    fileprivate func setNewRangeFiltered(_ upperLimit: Int) {
-        self.rangeFiltered = 0..<upperLimit
-    }
-
-    func loadMoreFiltered() {
-        let upperLimit = cityStore.citiesFilteredReducedRange.upperBound + chunkSize
-        self.rangeFiltered = cityStore.citiesFilteredReducedRange.lowerBound..<(min(upperLimit, cityStore.citiesFilteredFullRange.upperBound))
+        cityStore.loadMore(chunkSize)
+//        if rangeFiltered.lowerBound != cityStore.citiesFilteredReducedRange.lowerBound {
+//            rangeFiltered = cityStore.citiesFilteredReducedRange.lowerBound..<cityStore.citiesFilteredReducedRange.upperBound
+//        }
+//        let upperLimit = cityStore.citiesFilteredReducedRange.upperBound + chunkSize
+//        cityStore.citiesFilteredReducedRange = cityStore.citiesFilteredReducedRange.lowerBound..<(min(upperLimit, cityStore.citiesFilteredFullRange.upperBound))
     }
 }
 

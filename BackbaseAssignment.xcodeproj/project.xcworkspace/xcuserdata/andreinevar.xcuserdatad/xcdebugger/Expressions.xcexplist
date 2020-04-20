@@ -32,7 +32,18 @@
          contextName = "ContentView.loadMoreFiltered():ContentView.swift">
          <PersistentStrings>
             <PersistentString
+               value = "cityStore.citiesFilteredFullRange">
+            </PersistentString>
+            <PersistentString
                value = "cityStore.citiesFilteredReducedRange">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in CityStore.search(matching:handler:):CityStore.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "arrayOfRange">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
