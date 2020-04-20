@@ -15,6 +15,8 @@ struct ContentView: View {
     @State var range: Range<Int> = 0..<20
     private let chunkSize = 20
 
+    @State var rangeFiltered: Range<Int> = 0..<20
+
     @EnvironmentObject var cityStore: CityStore
     @EnvironmentObject var tree: Tree
     
@@ -28,45 +30,35 @@ struct ContentView: View {
                             .keyboardType(.namePhonePad)
                             .disableAutocorrection(true)
                     } else {
-                        ProgressBar(value: $tree.progressValue).frame(height: 10)
+                        HStack {
+                            Text("Building search").font(.footnote).foregroundColor(.gray)
+                            ProgressBar(value: $tree.progressValue).frame(height: 10)
+                        }
                     }
                 }
 
                 Section(header: Text("Cities - \(arrayDisplayedCount) results")) {
 
-                    if self.searchTerm.isEmpty {
-                        List {
-                            ForEach(range, id: \.self) {
-//                                VStack {
-                                    Text("\(self.cityStore.allCitiesArray[$0].name), \(self.cityStore.allCitiesArray[$0].country)").fontWeight(.bold)
-//                                    Text("\(self.cityStore.allCitiesArray[$0].coord.lat) - \(self.cityStore.allCitiesArray[$0].coord.lon)").fontWeight(.regular)
-//                                }
-                            }
-                            Button(action: loadMore) {
-                                Text("")
-                            }
-                            .onAppear {
-                                DispatchQueue.global(qos: .background).asyncAfter(deadline: DispatchTime(uptimeNanoseconds: 10)) {
-                                    self.loadMore()
-                                }
+                    List {
+                        ForEach(rangeFiltered, id: \.self) { number in
+                            VStack(alignment: .leading) {
+                                Text("\(self.cityStore.allCitiesArray[number].name), \(self.cityStore.allCitiesArray[number].country)")
+                                Text("lat:\(self.cityStore.allCitiesArray[number].coord.lat)  lon:\(self.cityStore.allCitiesArray[number].coord.lon)").font(.footnote).foregroundColor(.gray)
                             }
                         }
-                    } else {
-                        List {
-                            ForEach(cityStore.citiesFiltered) { city in
-//                                VStack {
-                                    Text("\(city.name), \(city.country)").fontWeight(.bold)
-//                                    Text("\(city.coord.lat) - \(city.coord.lon)").fontWeight(.regular)
-//                                }
+                        Button(action: loadMoreFiltered) {
+                            Text("")
+                        }
+                        .onAppear {
+                            DispatchQueue.global(qos: .background).asyncAfter(deadline: DispatchTime(uptimeNanoseconds: 10)) {
+                                self.loadMoreFiltered()
                             }
                         }
                     }
-
                 }
-            }.navigationBarTitle("City list")
-                .onTapGesture {
-                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
             }
+            .navigationBarTitle("City list")
+            .onTapGesture { UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil) }
         }
         .onAppear(perform: debouncedFetch)
     }
@@ -106,11 +98,20 @@ struct ContentView: View {
     }
 
     func loadMore() {
-        let upperLimit = self.range.upperBound + self.chunkSize
+        let upperLimit = range.upperBound + chunkSize
         setNewRange(min(upperLimit, arrayDisplayedCount))
     }
 
 
+
+    fileprivate func setNewRangeFiltered(_ upperLimit: Int) {
+        self.rangeFiltered = 0..<upperLimit
+    }
+
+    func loadMoreFiltered() {
+        let upperLimit = cityStore.citiesFilteredReducedRange.upperBound + chunkSize
+        self.rangeFiltered = cityStore.citiesFilteredReducedRange.lowerBound..<(min(upperLimit, cityStore.citiesFilteredFullRange.upperBound))
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {

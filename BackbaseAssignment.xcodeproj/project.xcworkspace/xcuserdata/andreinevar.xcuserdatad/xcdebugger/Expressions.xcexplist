@@ -3,10 +3,15 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "ContentView.init():ContentView.swift">
-      </ContextState>
-      <ContextState
-         contextName = "NSBundle.decode&lt;A&gt;(_:from:dateDecodingStrategy:keyDecodingStrategy:):ContentView.swift">
+         contextName = "ContentView.arrayDisplayedCount.getter:ContentView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "cityStore.isSearching">
+            </PersistentString>
+            <PersistentString
+               value = "searchTerm.isEmpty">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "ContentView.fetch():ContentView.swift">
@@ -15,13 +20,41 @@
          contextName = "closure #1 in CityStore.search(matching:handler:):CityStore.swift">
       </ContextState>
       <ContextState
+         contextName = "closure #1 in Tree.buildTree(_:completed:):Tree.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in CityStore.fetch(matching:):CityStore.swift">
+      </ContextState>
+      <ContextState
+         contextName = "specialized closure #2 in CityStore.search(matching:handler:):CityStore.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ContentView.loadMoreFiltered():ContentView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "cityStore.citiesFilteredReducedRange">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "CityStore.search(matching:handler:):CityStore.swift">
+      </ContextState>
+      <ContextState
+         contextName = "SceneDelegate.scene(_:willConnectTo:options:):SceneDelegate.swift">
       </ContextState>
       <ContextState
          contextName = "closure #4 in closure #1 in closure #2 in closure #1 in closure #1 in ContentView.body.getter:ContentView.swift">
       </ContextState>
       <ContextState
-         contextName = "SceneDelegate.scene(_:willConnectTo:options:):SceneDelegate.swift">
+         contextName = "CityStore.buildTree():CityStore.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "tree">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ContentView.init():ContentView.swift">
       </ContextState>
       <ContextState
          contextName = "closure #1 in closure #1 in closure #2 in closure #1 in closure #1 in ContentView.body.getter:ContentView.swift">
@@ -38,26 +71,7 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ContentView.arrayDisplayedCount.getter:ContentView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "cityStore.isSearching">
-            </PersistentString>
-            <PersistentString
-               value = "searchTerm.isEmpty">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in closure #1 in CityStore.fetch(matching:):CityStore.swift">
-      </ContextState>
-      <ContextState
-         contextName = "CityStore.buildTree():CityStore.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "tree">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "NSBundle.decode&lt;A&gt;(_:from:dateDecodingStrategy:keyDecodingStrategy:):ContentView.swift">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

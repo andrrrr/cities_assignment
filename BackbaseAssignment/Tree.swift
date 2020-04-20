@@ -34,7 +34,6 @@ class Tree: ObservableObject {
                 if let firstLetterNodeFound = root.searchChildren(letter: "\(firstLetter)") {
                     firstLetterNode = firstLetterNodeFound
                     firstLetterNode?.newUpperBound(citiesCount+1)
-                    print("\(firstLetter) exist in \(firstLetterNode?.range)")
                 } else {
                     firstLetterNode = Node(letter: "\(firstLetter)", range: citiesCount..<(citiesCount + 1))
                     root.add(child: firstLetterNode!)
@@ -47,9 +46,7 @@ class Tree: ObservableObject {
                     if let twoLetterNodeFound = firstLetterNode?.searchChildren(letter: "\(twoLetters)") {
                         twoLetterNode = twoLetterNodeFound
                         twoLetterNode?.newUpperBound(citiesCount+1)
-                        print("\(twoLetters) exist in \(twoLetterNode?.range)")
                     } else {
-
                         twoLetterNode = Node(letter: "\(twoLetters)", range: citiesCount..<(citiesCount + 1))
                         firstLetterNode?.add(child: twoLetterNode!)
                     }
@@ -62,7 +59,6 @@ class Tree: ObservableObject {
                     if let threeLetterNodeFound = twoLetterNode?.searchChildren(letter: "\(threeLetters)") {
                         threeLetterNode = threeLetterNodeFound
                         threeLetterNode?.newUpperBound(citiesCount+1)
-                        print("\(threeLetters) exist in \(threeLetterNode?.range)")
                     } else {
                         threeLetterNode = Node(letter: "\(threeLetters)", range: citiesCount..<(citiesCount + 1))
                         twoLetterNode?.add(child: threeLetterNode!)
@@ -94,7 +90,7 @@ class Node {
     }
 
     func newUpperBound(_ newUpperBound: Int) {
-        range = range.upperBound..<newUpperBound
+        range = range.lowerBound..<newUpperBound
     }
 }
 

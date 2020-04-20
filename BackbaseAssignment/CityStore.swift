@@ -14,6 +14,9 @@ class CityStore: ObservableObject {
     @Published private(set) var allCitiesArray = Bundle.main.decode([City].self, from: "cities.json").sorted(by: { $0.name < $1.name })
     @Published private(set) var isSearching = false
 
+    @Published private(set) var citiesFilteredReducedRange: Range<Int> = 0..<1
+    @Published private(set) var citiesFilteredFullRange: Range<Int> = 0..<1
+
     private var treeBuilder: Tree?
     private var tree: Node?
 
@@ -35,15 +38,58 @@ class CityStore: ObservableObject {
         search(matching: query.lowercased()) { [weak self] result in
             DispatchQueue.main.async {
                 self?.isSearching = false
-                self?.citiesFiltered = result
+//                self?.citiesFiltered = result
+                self?.citiesFilteredReducedRange = result.lowerBound..<(result.lowerBound + 20)
+                self?.citiesFilteredFullRange = result
+
             }
         }
     }
 
     private var previousSearchTerm = ""
 
-    private func search(matching searchTerm: String, handler: @escaping ([City]) -> Void) {
+//    private func search(matching searchTerm: String, handler: @escaping ([City]) -> Void) {
+//        guard !searchTerm.isEmpty else {
+//            isSearching = false
+//            return
+//        }
+//        var searchThis = searchTerm
+//        var needToFilter = false
+//        if searchTerm.count > 3 {
+//            searchThis = String(searchTerm.prefix(3))
+//            needToFilter = true
+//        }
+//
+//        if !previousSearchTerm.isEmpty && searchTerm.hasPrefix(previousSearchTerm) {
+//            print("cache")
+//            DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+//                if let array = (!needToFilter) ? self?.citiesFiltered : self?.citiesFiltered.filter({$0.name.lowercased().hasPrefix(searchTerm)}) {
+//                    DispatchQueue.main.async {
+//                        handler(array)
+//                    }
+//                }
+//            }
+//        } else {
+//            print("new search: \(searchTerm) ")
+//            DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+//                if let searchNode = self?.tree?.search(letter: searchThis), let arraySlice = self?.allCitiesArray[searchNode.range] {
+//                    let array = (!needToFilter) ? Array<City>(arraySlice) : Array<City>(arraySlice).filter ({$0.name.lowercased().hasPrefix(searchTerm)})
+//                    DispatchQueue.main.async {
+//                        handler(array)
+//                    }
+//                }
+//            }
+//        }
+//        previousSearchTerm = searchTerm
+//    }
+
+
+    
+
+    private func search(matching searchTerm: String, handler: @escaping (Range<Int>) -> Void) {
         guard !searchTerm.isEmpty else {
+            citiesFilteredReducedRange = 0..<20
+            citiesFilteredFullRange = 0..<allCitiesArray.count
             isSearching = false
             return
         }
@@ -54,27 +100,27 @@ class CityStore: ObservableObject {
             needToFilter = true
         }
 
-        if !previousSearchTerm.isEmpty && searchTerm.hasPrefix(previousSearchTerm) {
-            print("cache")
-            DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-                if let array = (!needToFilter) ? self?.citiesFiltered : self?.citiesFiltered.filter {$0.name.lowercased().hasPrefix(searchTerm)} {
-                    DispatchQueue.main.async {
-                        handler(array)
-                    }
-                }
-            }
-        } else {
+//        if !previousSearchTerm.isEmpty && searchTerm.hasPrefix(previousSearchTerm) {
+//            print("cache")
+//            DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+//                if let array = (!needToFilter) ? self?.citiesFiltered : self?.citiesFiltered.filter({$0.name.lowercased().hasPrefix(searchTerm)}) {
+//                    DispatchQueue.main.async {
+//                        handler(array)
+//                    }
+//                }
+//            }
+//        } else {
             print("new search: \(searchTerm) ")
             DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-                if let searchNode = self?.tree?.search(letter: searchThis), let arraySlice = self?.allCitiesArray[searchNode.range] {
-                    let array = (!needToFilter) ? Array<City>(arraySlice) : Array<City>(arraySlice).filter {$0.name.lowercased().hasPrefix(searchTerm)}
+                if let searchNode = self?.tree?.search(letter: searchThis) { //, let arraySlice = self?.allCitiesArray[searchNode.range] {
+//                    let array = (!needToFilter) ? Array<City>(arraySlice) : Array<City>(arraySlice).filter ({$0.name.lowercased().hasPrefix(searchTerm)})
                     DispatchQueue.main.async {
-                        handler(array)
+                        handler(searchNode.range)
                     }
                 }
             }
-        }
-        previousSearchTerm = searchTerm
+//        }
+//        previousSearchTerm = searchTerm
     }
 }
 
