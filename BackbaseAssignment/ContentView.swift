@@ -38,10 +38,14 @@ struct ContentView: View {
 
                     List {
                         ForEach(cityStore.citiesFilteredReducedRange, id: \.self) { number in
-                            VStack(alignment: .leading) {
-                                Text("\(self.cityStore.allCitiesArray[number].name), \(self.cityStore.allCitiesArray[number].country)")
-                                Text("lat:\(self.cityStore.allCitiesArray[number].coord.lat)  lon:\(self.cityStore.allCitiesArray[number].coord.lon)").font(.footnote).foregroundColor(.gray)
+                            NavigationLink(
+                              destination: DetailView(city: self.cityStore.allCitiesArray[number])) {
+                                VStack(alignment: .leading) {
+                                    Text("\(self.cityStore.allCitiesArray[number].name), \(self.cityStore.allCitiesArray[number].country)")
+                                    Text("lat:\(self.cityStore.allCitiesArray[number].coord.lat)  lon:\(self.cityStore.allCitiesArray[number].coord.lon)").font(.footnote).foregroundColor(.gray)
+                                }
                             }
+
                         }
                         Button(action: loadMore) {
                             Text("")

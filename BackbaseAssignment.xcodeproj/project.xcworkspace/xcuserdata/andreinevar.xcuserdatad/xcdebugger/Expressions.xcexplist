@@ -24,6 +24,11 @@
       </ContextState>
       <ContextState
          contextName = "closure #1 in closure #1 in CityStore.fetch(matching:):CityStore.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self?.citiesFilteredReducedRange.upperBound">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "specialized closure #2 in CityStore.search(matching:handler:):CityStore.swift">

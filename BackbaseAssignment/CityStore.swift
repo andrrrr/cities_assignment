@@ -37,6 +37,13 @@ class CityStore: ObservableObject {
         })
     }
 
+    func loadMore(_ chunkSize: Int) {
+        let upperLimit = citiesFilteredReducedRange.upperBound + chunkSize
+        DispatchQueue.main.async {
+             self.citiesFilteredReducedRange = self.citiesFilteredReducedRange.lowerBound..<(min(upperLimit, self.citiesFilteredFullRange.upperBound))
+        }
+    }
+
     func fetch(matching query: String) {
         guard !query.isEmpty else {
             citiesFilteredReducedRange = 0..<20
@@ -48,17 +55,10 @@ class CityStore: ObservableObject {
         search(matching: query.lowercased()) { [weak self] result in
             DispatchQueue.main.async {
 
-                self?.citiesFilteredReducedRange = result.lowerBound..<(result.lowerBound + 20)
+                self?.citiesFilteredReducedRange = result.lowerBound..<(min(result.lowerBound + 20, (result.upperBound))) //(result.lowerBound + 20)
                 self?.citiesFilteredFullRange = result
 
             }
-        }
-    }
-
-    func loadMore(_ chunkSize: Int) {
-        let upperLimit = citiesFilteredReducedRange.upperBound + chunkSize
-        DispatchQueue.main.async {
-            self.citiesFilteredReducedRange = self.citiesFilteredReducedRange.lowerBound..<(min(upperLimit, self.citiesFilteredFullRange.upperBound))
         }
     }
 
@@ -82,7 +82,11 @@ class CityStore: ObservableObject {
                     }
                     if let minimum = newRanges.min(), let maximum = newRanges.max() {
                         DispatchQueue.main.async {
-                            handler((minimum)..<(maximum))
+                            handler((minimum)..<(maximum + 1))
+                        }
+                    } else {
+                        DispatchQueue.main.async {
+                            handler(0..<0)
                         }
                     }
                 } else {
