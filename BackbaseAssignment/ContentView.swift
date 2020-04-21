@@ -32,20 +32,19 @@ struct ContentView: View {
                             ProgressBar(value: $tree.progressValue).frame(height: 10)
                         }
                     }
-                }
+                }.onTapGesture { UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil) }
 
                 Section(header: Text("Cities - \(cityStore.citiesFilteredFullRange.upperBound - cityStore.citiesFilteredFullRange.lowerBound) results")) {
 
                     List {
                         ForEach(cityStore.citiesFilteredReducedRange, id: \.self) { number in
                             NavigationLink(
-                              destination: DetailView(city: self.cityStore.allCitiesArray[number])) {
+                            destination: DetailView(city: self.cityStore.allCitiesArray[number])) {
                                 VStack(alignment: .leading) {
                                     Text("\(self.cityStore.allCitiesArray[number].name), \(self.cityStore.allCitiesArray[number].country)")
                                     Text("lat:\(self.cityStore.allCitiesArray[number].coord.lat)  lon:\(self.cityStore.allCitiesArray[number].coord.lon)").font(.footnote).foregroundColor(.gray)
                                 }
                             }
-
                         }
                         Button(action: loadMore) {
                             Text("")
@@ -59,7 +58,7 @@ struct ContentView: View {
                 }
             }
             .navigationBarTitle("City list")
-            .onTapGesture { UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil) }
+            //.onTapGesture { UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil) }
         }
         .onAppear(perform: fetch)
 

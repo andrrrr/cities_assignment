@@ -53,6 +53,9 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "specialized closure #1 in CityStore.search(matching:handler:):CityStore.swift">
+      </ContextState>
+      <ContextState
          contextName = "CityStore.search(matching:handler:):CityStore.swift">
       </ContextState>
       <ContextState
@@ -66,6 +69,14 @@
          <PersistentStrings>
             <PersistentString
                value = "tree">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #4 in CityStoreTests.testFetching():CityStoreTests.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "store.allCitiesArray[range]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

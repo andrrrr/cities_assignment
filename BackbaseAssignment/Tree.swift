@@ -5,6 +5,10 @@
 //  Created by Andrei Nevar on 19/04/2020.
 //  Copyright © 2020 Andrei Nevar. All rights reserved.
 //
+//  Tree is used for quick search, it has only 3 layers of depth, first letter: k, second letter that would represent ka, kb, kc .. and third: kaa, kab, ..
+//  
+//
+//
 
 import Foundation
 

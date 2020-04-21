@@ -64,7 +64,7 @@ class CityStore: ObservableObject {
         }
     }
 
-    private func search(matching searchTerm: String, handler: @escaping (Range<Int>) -> Void) {
+    func search(matching searchTerm: String, handler: @escaping (Range<Int>) -> Void) {
 
         var searchThis = searchTerm
         var needToFilter = false

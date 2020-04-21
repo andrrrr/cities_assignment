@@ -19,7 +19,19 @@
 		47450A4C244CA89100C18DF7 /* Tree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47450A4B244CA89000C18DF7 /* Tree.swift */; };
 		47450A4E244CD33900C18DF7 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47450A4D244CD33900C18DF7 /* ProgressBar.swift */; };
 		47A771AF244E5DF300D4F927 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A771AE244E5DF300D4F927 /* DetailView.swift */; };
+		47A771C4244F1EE000D4F927 /* BackbaseAssignmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A771C3244F1EE000D4F927 /* BackbaseAssignmentTests.swift */; };
+		47A771CB244F1F0400D4F927 /* CityStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A771BB244F1E8500D4F927 /* CityStoreTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		47A771C6244F1EE000D4F927 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 474509D92449F64C00C18DF7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 474509E02449F64C00C18DF7;
+			remoteInfo = BackbaseAssignment;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		474509E12449F64C00C18DF7 /* BackbaseAssignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BackbaseAssignment.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -36,10 +48,21 @@
 		47450A4B244CA89000C18DF7 /* Tree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tree.swift; sourceTree = "<group>"; };
 		47450A4D244CD33900C18DF7 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		47A771AE244E5DF300D4F927 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		47A771BB244F1E8500D4F927 /* CityStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityStoreTests.swift; sourceTree = "<group>"; };
+		47A771C1244F1EE000D4F927 /* BackbaseAssignmentTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BackbaseAssignmentTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		47A771C3244F1EE000D4F927 /* BackbaseAssignmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackbaseAssignmentTests.swift; sourceTree = "<group>"; };
+		47A771C5244F1EE000D4F927 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		474509DE2449F64C00C18DF7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		47A771BE244F1EE000D4F927 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -53,6 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				474509E32449F64C00C18DF7 /* BackbaseAssignment */,
+				47A771C2244F1EE000D4F927 /* BackbaseAssignmentTests */,
 				474509E22449F64C00C18DF7 /* Products */,
 				474509F82449F8A000C18DF7 /* cities.json */,
 			);
@@ -62,6 +86,7 @@
 			isa = PBXGroup;
 			children = (
 				474509E12449F64C00C18DF7 /* BackbaseAssignment.app */,
+				47A771C1244F1EE000D4F927 /* BackbaseAssignmentTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -70,17 +95,18 @@
 			isa = PBXGroup;
 			children = (
 				474509E42449F64C00C18DF7 /* AppDelegate.swift */,
-				47450A4D244CD33900C18DF7 /* ProgressBar.swift */,
 				474509E62449F64C00C18DF7 /* SceneDelegate.swift */,
+				47450A4D244CD33900C18DF7 /* ProgressBar.swift */,
 				474509E82449F64C00C18DF7 /* ContentView.swift */,
 				474509FA2449FCD800C18DF7 /* City.swift */,
 				47450A1E244B194300C18DF7 /* CityStore.swift */,
+				47A771AE244E5DF300D4F927 /* DetailView.swift */,
+				47A771BB244F1E8500D4F927 /* CityStoreTests.swift */,
 				47450A4B244CA89000C18DF7 /* Tree.swift */,
 				474509EA2449F64D00C18DF7 /* Assets.xcassets */,
 				474509EF2449F64D00C18DF7 /* LaunchScreen.storyboard */,
 				474509F22449F64D00C18DF7 /* Info.plist */,
 				474509EC2449F64D00C18DF7 /* Preview Content */,
-				47A771AE244E5DF300D4F927 /* DetailView.swift */,
 			);
 			path = BackbaseAssignment;
 			sourceTree = "<group>";
@@ -91,6 +117,15 @@
 				474509ED2449F64D00C18DF7 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		47A771C2244F1EE000D4F927 /* BackbaseAssignmentTests */ = {
+			isa = PBXGroup;
+			children = (
+				47A771C3244F1EE000D4F927 /* BackbaseAssignmentTests.swift */,
+				47A771C5244F1EE000D4F927 /* Info.plist */,
+			);
+			path = BackbaseAssignmentTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -113,18 +148,40 @@
 			productReference = 474509E12449F64C00C18DF7 /* BackbaseAssignment.app */;
 			productType = "com.apple.product-type.application";
 		};
+		47A771C0244F1EE000D4F927 /* BackbaseAssignmentTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 47A771C8244F1EE000D4F927 /* Build configuration list for PBXNativeTarget "BackbaseAssignmentTests" */;
+			buildPhases = (
+				47A771BD244F1EE000D4F927 /* Sources */,
+				47A771BE244F1EE000D4F927 /* Frameworks */,
+				47A771BF244F1EE000D4F927 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				47A771C7244F1EE000D4F927 /* PBXTargetDependency */,
+			);
+			name = BackbaseAssignmentTests;
+			productName = BackbaseAssignmentTests;
+			productReference = 47A771C1244F1EE000D4F927 /* BackbaseAssignmentTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		474509D92449F64C00C18DF7 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1120;
+				LastSwiftUpdateCheck = 1140;
 				LastUpgradeCheck = 1120;
 				ORGANIZATIONNAME = "Andrei Nevar";
 				TargetAttributes = {
 					474509E02449F64C00C18DF7 = {
 						CreatedOnToolsVersion = 11.2.1;
+					};
+					47A771C0244F1EE000D4F927 = {
+						CreatedOnToolsVersion = 11.4.1;
+						TestTargetID = 474509E02449F64C00C18DF7;
 					};
 				};
 			};
@@ -142,6 +199,7 @@
 			projectRoot = "";
 			targets = (
 				474509E02449F64C00C18DF7 /* BackbaseAssignment */,
+				47A771C0244F1EE000D4F927 /* BackbaseAssignmentTests */,
 			);
 		};
 /* End PBXProject section */
@@ -155,6 +213,13 @@
 				474509F12449F64D00C18DF7 /* LaunchScreen.storyboard in Resources */,
 				474509EE2449F64D00C18DF7 /* Preview Assets.xcassets in Resources */,
 				474509EB2449F64D00C18DF7 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		47A771BF244F1EE000D4F927 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,7 +241,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		47A771BD244F1EE000D4F927 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				47A771CB244F1F0400D4F927 /* CityStoreTests.swift in Sources */,
+				47A771C4244F1EE000D4F927 /* BackbaseAssignmentTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		47A771C7244F1EE000D4F927 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 474509E02449F64C00C18DF7 /* BackbaseAssignment */;
+			targetProxy = 47A771C6244F1EE000D4F927 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		474509EF2449F64D00C18DF7 /* LaunchScreen.storyboard */ = {
@@ -344,6 +426,46 @@
 			};
 			name = Release;
 		};
+		47A771C9244F1EE000D4F927 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = BackbaseAssignmentTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = me.nevar.andrei.BackbaseAssignmentTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BackbaseAssignment.app/BackbaseAssignment";
+			};
+			name = Debug;
+		};
+		47A771CA244F1EE000D4F927 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = BackbaseAssignmentTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = me.nevar.andrei.BackbaseAssignmentTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BackbaseAssignment.app/BackbaseAssignment";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -361,6 +483,15 @@
 			buildConfigurations = (
 				474509F62449F64D00C18DF7 /* Debug */,
 				474509F72449F64D00C18DF7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		47A771C8244F1EE000D4F927 /* Build configuration list for PBXNativeTarget "BackbaseAssignmentTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				47A771C9244F1EE000D4F927 /* Debug */,
+				47A771CA244F1EE000D4F927 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
