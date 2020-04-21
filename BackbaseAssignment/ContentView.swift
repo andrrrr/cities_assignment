@@ -32,7 +32,7 @@ struct ContentView: View {
                             ProgressBar(value: $tree.progressValue).frame(height: 10)
                         }
                     }
-                }.onTapGesture { UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil) }
+                }
 
                 Section(header: Text("Cities - \(cityStore.citiesFilteredFullRange.upperBound - cityStore.citiesFilteredFullRange.lowerBound) results")) {
 
@@ -58,7 +58,7 @@ struct ContentView: View {
                 }
             }
             .navigationBarTitle("City list")
-            //.onTapGesture { UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil) }
+            .onTapGesture { UIApplication.shared.endEditing() }
         }
         .onAppear(perform: fetch)
 
