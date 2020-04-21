@@ -32,9 +32,11 @@ class CityStore: ObservableObject {
 
     private func buildTree() {
         citiesFilteredFullRange = 0..<allCitiesArray.count
-        treeBuilder?.buildTree(allCitiesArray, completed: { tree in
-            self.tree = tree
-        })
+        if self.tree == nil {
+            treeBuilder?.buildTree(allCitiesArray, completed: { tree in
+                self.tree = tree
+            })
+        }
     }
 
     func loadMore(_ chunkSize: Int) {

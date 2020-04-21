@@ -9,7 +9,7 @@
 import Foundation
 import CoreLocation
 
-class City: Codable, Identifiable {
+struct City: Codable, Identifiable {
     var id: Int
     var country: String
     var name: String
@@ -22,7 +22,7 @@ class City: Codable, Identifiable {
         case coord = "coord"
     }
 
-    required init(from decoder: Decoder) throws{
+    init(from decoder: Decoder) throws{
         let container = try decoder.container(keyedBy: CodingKeys.self)
             id = try container.decode(Int.self, forKey: .id)
             country = try container.decode(String.self, forKey: .country)
