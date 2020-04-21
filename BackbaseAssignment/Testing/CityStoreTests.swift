@@ -8,6 +8,7 @@
 
 import Nimble
 import Quick
+import SwiftUI
 
 @testable import BackbaseAssignment
 
@@ -15,7 +16,7 @@ class CityStoreTests: QuickSpec {
 
     override func spec() {
         let treeBuilder = Tree()
-        let store = CityStore(tree: treeBuilder, halt: true)
+        let store = CityStore(treeBuilder: treeBuilder, halt: true)
         var loadTreeFinished = false
 
         beforeEach {
@@ -23,18 +24,16 @@ class CityStoreTests: QuickSpec {
 
         }
 
+        //test doesn't work, and requires more time to fix. I tried a bunch of stuff:
+        // XCTest with XCTestExpectation, then imported Qcuik and Nimble
+        // ended up having to inject SceneDelegate, still no luck
+        //The injection now happens on SceneDelegate level
+        //it doesn't go inside the closure that searches for some reason.
+        //for SceneDelegate to start test app you need to reset content and settings
 
         context("should find cities") {
 
-//            it("should not call the review request") {
-//                expect(loadTreeFinished).toEventually(beTrue(), timeout: 5000, pollInterval: 1.0)
-//                var rangeFound = 0..<1
-//                store.search(matching: "Moscow", handler: { range in
-//                    rangeFound = range
-//
-//                })
-//                expect((store.allCitiesArray[rangeFound]).contains(where: { $0.name == "Moscow"})).toEventually(beTrue(), timeout: 5000, pollInterval: 1.0)
-//            }
+
 
             it("should find") {
                 var rangeFound = 0..<1
@@ -48,16 +47,6 @@ class CityStoreTests: QuickSpec {
                         })
                     })
                 }
-
-
-//                waitUntil (timeout: 500) { done in
-//                    store.search(matching: "New York", handler: { range in
-//                        rangeFound = range
-//                        expect((store.allCitiesArray[rangeFound]).contains(where: { $0.name == "New York"})).toEventually(beTrue())
-//                    })
-//
-//                }
-
             }
         }
     }

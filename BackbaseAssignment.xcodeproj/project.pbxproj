@@ -22,10 +22,10 @@
 		47A771AF244E5DF300D4F927 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A771AE244E5DF300D4F927 /* DetailView.swift */; };
 		47A771C4244F1EE000D4F927 /* BackbaseAssignmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A771C3244F1EE000D4F927 /* BackbaseAssignmentTests.swift */; };
 		47A771CB244F1F0400D4F927 /* CityStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A771BB244F1E8500D4F927 /* CityStoreTests.swift */; };
-		47F64CB6244F7FD300A6FA52 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F64CB5244F7FD300A6FA52 /* main.swift */; };
 		47F64CB9244F805500A6FA52 /* TestingAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F64CB7244F802500A6FA52 /* TestingAppDelegate.swift */; };
 		47F64CBC244F80B700A6FA52 /* TestingSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F64CBA244F808000A6FA52 /* TestingSceneDelegate.swift */; };
 		47F64CBF244F819A00A6FA52 /* TestingRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F64CBE244F819A00A6FA52 /* TestingRootViewController.swift */; };
+		47F64CC1244F862700A6FA52 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F64CB5244F7FD300A6FA52 /* main.swift */; };
 		E5BB742C672C67F7DE1861FB /* Pods_BackbaseAssignment.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7023E2F625667680EC136A63 /* Pods_BackbaseAssignment.framework */; };
 /* End PBXBuildFile section */
 
@@ -116,18 +116,14 @@
 		474509E32449F64C00C18DF7 /* BackbaseAssignment */ = {
 			isa = PBXGroup;
 			children = (
+				47F64CC0244F861500A6FA52 /* Testing */,
 				474509E42449F64C00C18DF7 /* AppDelegate.swift */,
-				47F64CB7244F802500A6FA52 /* TestingAppDelegate.swift */,
-				47F64CBA244F808000A6FA52 /* TestingSceneDelegate.swift */,
-				47F64CB5244F7FD300A6FA52 /* main.swift */,
 				474509E62449F64C00C18DF7 /* SceneDelegate.swift */,
 				47450A4D244CD33900C18DF7 /* ProgressBar.swift */,
 				474509E82449F64C00C18DF7 /* ContentView.swift */,
-				47F64CBE244F819A00A6FA52 /* TestingRootViewController.swift */,
 				474509FA2449FCD800C18DF7 /* City.swift */,
 				47450A1E244B194300C18DF7 /* CityStore.swift */,
 				47A771AE244E5DF300D4F927 /* DetailView.swift */,
-				47A771BB244F1E8500D4F927 /* CityStoreTests.swift */,
 				47450A4B244CA89000C18DF7 /* Tree.swift */,
 				474509EA2449F64D00C18DF7 /* Assets.xcassets */,
 				474509EF2449F64D00C18DF7 /* LaunchScreen.storyboard */,
@@ -152,6 +148,18 @@
 				47A771C5244F1EE000D4F927 /* Info.plist */,
 			);
 			path = BackbaseAssignmentTests;
+			sourceTree = "<group>";
+		};
+		47F64CC0244F861500A6FA52 /* Testing */ = {
+			isa = PBXGroup;
+			children = (
+				47F64CBE244F819A00A6FA52 /* TestingRootViewController.swift */,
+				47F64CB7244F802500A6FA52 /* TestingAppDelegate.swift */,
+				47F64CB5244F7FD300A6FA52 /* main.swift */,
+				47F64CBA244F808000A6FA52 /* TestingSceneDelegate.swift */,
+				47A771BB244F1E8500D4F927 /* CityStoreTests.swift */,
+			);
+			path = Testing;
 			sourceTree = "<group>";
 		};
 		5DF64CD3A32075DB3A6A7556 /* Frameworks */ = {
@@ -347,7 +355,6 @@
 			files = (
 				47450A4C244CA89100C18DF7 /* Tree.swift in Sources */,
 				47A771AF244E5DF300D4F927 /* DetailView.swift in Sources */,
-				47F64CB6244F7FD300A6FA52 /* main.swift in Sources */,
 				474509E52449F64C00C18DF7 /* AppDelegate.swift in Sources */,
 				474509E72449F64C00C18DF7 /* SceneDelegate.swift in Sources */,
 				474509FB2449FCD800C18DF7 /* City.swift in Sources */,
@@ -363,6 +370,7 @@
 			files = (
 				47F64CBC244F80B700A6FA52 /* TestingSceneDelegate.swift in Sources */,
 				47F64CB9244F805500A6FA52 /* TestingAppDelegate.swift in Sources */,
+				47F64CC1244F862700A6FA52 /* main.swift in Sources */,
 				47A771CB244F1F0400D4F927 /* CityStoreTests.swift in Sources */,
 				47A771C4244F1EE000D4F927 /* BackbaseAssignmentTests.swift in Sources */,
 				47F64CBF244F819A00A6FA52 /* TestingRootViewController.swift in Sources */,

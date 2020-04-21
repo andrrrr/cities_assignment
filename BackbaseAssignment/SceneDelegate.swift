@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
             let window = UIWindow(windowScene: windowScene)
             let tree = Tree()
-            let store = CityStore(tree: tree)
+            let store = CityStore(treeBuilder: tree)
             window.rootViewController = UIHostingController(
                 rootView: ContentView().environmentObject(store).environmentObject(tree)
             )
