@@ -39,6 +39,10 @@ class CityStore: ObservableObject {
         }
     }
 
+    func setTree(_ tree: Node){
+        self.tree = tree
+    }
+
     func loadMore(_ chunkSize: Int) {
         let upperLimit = citiesFilteredReducedRange.upperBound + chunkSize
         DispatchQueue.main.async {
@@ -72,31 +76,55 @@ class CityStore: ObservableObject {
             needToFilter = true
         }
 
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            if let searchNode = self?.tree?.search(letter: searchThis) {
-                if needToFilter {
-                    var newRanges = [Int]()
-                    for number in searchNode.range {
-                        if let match = self?.allCitiesArray[number].name.lowercased().hasPrefix(searchTerm), match == true {
-                            newRanges.append(number)
-                        }
+        if let searchNode = tree?.search(letter: searchThis) {
+            if needToFilter {
+                var newRanges = [Int]()
+                for number in searchNode.range {
+                    if allCitiesArray[number].name.lowercased().hasPrefix(searchTerm) {
+                        newRanges.append(number)
                     }
-                    if let minimum = newRanges.min(), let maximum = newRanges.max() {
-                        DispatchQueue.main.async {
-                            handler((minimum)..<(maximum + 1))
-                        }
-                    } else {
-                        DispatchQueue.main.async {
-                            handler(0..<0)
-                        }
+                }
+                if let minimum = newRanges.min(), let maximum = newRanges.max() {
+                    DispatchQueue.main.async {
+                        handler((minimum)..<(maximum + 1))
                     }
                 } else {
                     DispatchQueue.main.async {
-                        handler(searchNode.range)
+                        handler(0..<0)
                     }
+                }
+            } else {
+                DispatchQueue.main.async {
+                    handler(searchNode.range)
                 }
             }
         }
+
+//        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+//            if let searchNode = self?.tree?.search(letter: searchThis) {
+//                if needToFilter {
+//                    var newRanges = [Int]()
+//                    for number in searchNode.range {
+//                        if let match = self?.allCitiesArray[number].name.lowercased().hasPrefix(searchTerm), match == true {
+//                            newRanges.append(number)
+//                        }
+//                    }
+//                    if let minimum = newRanges.min(), let maximum = newRanges.max() {
+//                        DispatchQueue.main.async {
+//                            handler((minimum)..<(maximum + 1))
+//                        }
+//                    } else {
+//                        DispatchQueue.main.async {
+//                            handler(0..<0)
+//                        }
+//                    }
+//                } else {
+//                    DispatchQueue.main.async {
+//                        handler(searchNode.range)
+//                    }
+//                }
+//            }
+//        }
     }
 }
 

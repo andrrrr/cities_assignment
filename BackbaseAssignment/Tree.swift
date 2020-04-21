@@ -5,9 +5,9 @@
 //  Created by Andrei Nevar on 19/04/2020.
 //  Copyright © 2020 Andrei Nevar. All rights reserved.
 //
-//  Tree is used for quick search, it has only 3 layers of depth, first letter: k, second letter that would represent ka, kb, kc .. and third: kaa, kab, ..
-//  
-//
+//  Tree is used for quick search, it has 3 layers of depth, first letter: k, second letter for ka, kb, kc .. and third: kaa, kab, ..
+//  each Node contains only range, which is two integers
+//  The global array is present, to which the Node points with a range
 //
 
 import Foundation

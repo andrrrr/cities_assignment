@@ -20,23 +20,44 @@ class CityStoreTests: QuickSpec {
 
         beforeEach {
             
-            treeBuilder.buildTree(store.allCitiesArray, completed: { _ in
-                loadTreeFinished = true
-            })
+
         }
 
 
-        context("running for the first time") {
+        context("should find cities") {
 
-            it("should not call the review request") {
-                expect(loadTreeFinished).toEventually(beTrue())
+//            it("should not call the review request") {
+//                expect(loadTreeFinished).toEventually(beTrue(), timeout: 5000, pollInterval: 1.0)
+//                var rangeFound = 0..<1
+//                store.search(matching: "Moscow", handler: { range in
+//                    rangeFound = range
+//
+//                })
+//                expect((store.allCitiesArray[rangeFound]).contains(where: { $0.name == "Moscow"})).toEventually(beTrue(), timeout: 5000, pollInterval: 1.0)
+//            }
+
+            it("should find") {
                 var rangeFound = 0..<1
-                store.search(matching: "Moscow", handler: { range in
-                    rangeFound = range
+                waitUntil (timeout: 500) { done in
+                    treeBuilder.buildTree(store.allCitiesArray, completed: { tree in
+                        store.setTree(tree)
 
-                })
+                        store.search(matching: "New York", handler: { range in
+                                               rangeFound = range
+                                expect((store.allCitiesArray[rangeFound]).contains(where: { $0.name == "New York"})).toEventually(beTrue())
+                        })
+                    })
+                }
 
-                expect((store.allCitiesArray[rangeFound]).contains(where: { $0.name == "Moscow"})).toEventually(beTrue())
+
+//                waitUntil (timeout: 500) { done in
+//                    store.search(matching: "New York", handler: { range in
+//                        rangeFound = range
+//                        expect((store.allCitiesArray[rangeFound]).contains(where: { $0.name == "New York"})).toEventually(beTrue())
+//                    })
+//
+//                }
+
             }
         }
     }
