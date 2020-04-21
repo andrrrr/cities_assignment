@@ -24,12 +24,11 @@ class CityStoreTests: QuickSpec {
 
         }
 
-        //test doesn't work, and requires more time to fix. I tried a bunch of stuff:
+        // test doesn't work, and requires more time to fix. I tried a bunch of stuff:
         // XCTest with XCTestExpectation, then imported Qcuik and Nimble
-        // ended up having to inject SceneDelegate, still no luck
-        //The injection now happens on SceneDelegate level
-        //it doesn't go inside the closure that searches for some reason.
-        //for SceneDelegate to start test app you need to reset content and settings
+        // ended up having to inject SceneDelegate, still no luck:
+        // it doesn't go inside the closure that searches for some reason.
+        // for SceneDelegate to start test app you need to reset content and settings
 
         context("should find cities") {
 
