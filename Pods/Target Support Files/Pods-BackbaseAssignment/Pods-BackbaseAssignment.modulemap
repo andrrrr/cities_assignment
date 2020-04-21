@@ -1,0 +1,6 @@
+framework module Pods_BackbaseAssignment {
+  umbrella header "Pods-BackbaseAssignment-umbrella.h"
+
+  export *
+  module * { export * }
+}

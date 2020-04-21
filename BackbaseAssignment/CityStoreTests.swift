@@ -6,43 +6,38 @@
 //  Copyright © 2020 Andrei Nevar. All rights reserved.
 //
 
-import XCTest
+import Nimble
+import Quick
 
 @testable import BackbaseAssignment
 
-class CityStoreTests: XCTestCase {
+class CityStoreTests: QuickSpec {
 
-
-    func testFetching() throws {
-
-        let expectation = self.expectation(description: "Building tree")
-
+    override func spec() {
         let treeBuilder = Tree()
         let store = CityStore(tree: treeBuilder)
+        var loadTreeFinished = false
+
+        beforeEach {
+            
+            treeBuilder.buildTree(store.allCitiesArray, completed: { _ in
+                loadTreeFinished = true
+            })
+        }
 
 
-        treeBuilder.buildTree(store.allCitiesArray, completed: { newTree in
+        context("running for the first time") {
 
-            expectation.fulfill()
+            it("should not call the review request") {
+                expect(loadTreeFinished).toEventually(beTrue())
+                var rangeFound = 0..<1
+                store.search(matching: "Moscow", handler: { range in
+                    rangeFound = range
 
-        })
+                })
 
-        waitForExpectations(timeout: 500, handler: nil)
-
-
-        store.search(matching: "Moscow", handler: { range in
-            XCTAssertTrue((store.allCitiesArray[range]).contains(where: { $0.name == "Moscow"}))
-        })
-
-        store.search(matching: "New York", handler: { range in
-            XCTAssertTrue((store.allCitiesArray[range]).contains(where: { $0.name == "New York"}))
-        })
-
-        store.search(matching: "kaluGA", handler: { range in
-            XCTAssertTrue((store.allCitiesArray[range]).contains(where: { $0.name == "Kaluga"}))
-        })
-
-
-
+                expect((store.allCitiesArray[rangeFound]).contains(where: { $0.name == "Moscow"})).toEventually(beTrue())
+            }
+        }
     }
 }

@@ -65,7 +65,6 @@ class CityStore: ObservableObject {
     }
 
     func search(matching searchTerm: String, handler: @escaping (Range<Int>) -> Void) {
-
         var searchThis = searchTerm
         var needToFilter = false
         if searchTerm.count > 3 {
