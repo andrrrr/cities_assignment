@@ -103,6 +103,10 @@ class CityStore: ObservableObject {
                         handler(searchNode.range)
                     }
                 }
+            } else {
+                DispatchQueue.main.async {
+                    handler(0..<1)
+                }
             }
         }
     }
