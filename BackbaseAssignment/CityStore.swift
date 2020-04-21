@@ -24,22 +24,26 @@ class CityStore: ObservableObject {
 
     private var treeBuilder: Tree?
     private var tree: Node?
+    var isBuildingTree = true
 
-    init(tree: Tree) {
+    init(tree: Tree, halt: Bool = false) {
         self.treeBuilder = tree
-        buildTree()
+        if !halt {
+            buildTree()
+        }
+
     }
 
     private func buildTree() {
         citiesFilteredFullRange = 0..<allCitiesArray.count
-        if self.tree == nil {
-            treeBuilder?.buildTree(allCitiesArray, completed: { tree in
-                self.tree = tree
-            })
-        }
+
+        treeBuilder?.buildTree(allCitiesArray, completed: { tree in
+            self.tree = tree
+            self.isBuildingTree = false
+        })
     }
 
-    func setTree(_ tree: Node){
+    func setTree(_ tree: Node) {
         self.tree = tree
     }
 

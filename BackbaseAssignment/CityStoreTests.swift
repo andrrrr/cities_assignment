@@ -15,7 +15,7 @@ class CityStoreTests: QuickSpec {
 
     override func spec() {
         let treeBuilder = Tree()
-        let store = CityStore(tree: treeBuilder)
+        let store = CityStore(tree: treeBuilder, halt: true)
         var loadTreeFinished = false
 
         beforeEach {
