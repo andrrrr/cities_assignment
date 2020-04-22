@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 
 let appDelegateClass: AnyClass = NSClassFromString("TestingAppDelegate") ?? AppDelegate.self
 
