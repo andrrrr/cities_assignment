@@ -11,7 +11,7 @@ import SwiftUI
 struct ContentView: View {
 
     @State private var progressValue: Float = 0.0
-    @State private var keyboardOpen: Bool = false
+    @State private var tappedLink: String? = nil
     private let chunkSize = 20
 
     @EnvironmentObject var cityStore: CityStore
@@ -26,8 +26,6 @@ struct ContentView: View {
                         TextField("Search", text: $cityStore.searchTerm, onCommit: debouncedFetch)
                             .keyboardType(.namePhonePad)
                             .disableAutocorrection(true)
-                            .onTapGesture { self.keyboardOpen = true }
-                            .onDisappear { self.keyboardOpen = false }
                     } else {
                         HStack {
                             Text("Building search").font(.footnote).foregroundColor(.gray)
@@ -40,13 +38,7 @@ struct ContentView: View {
 
                     List {
                         ForEach(cityStore.citiesFilteredReducedRange, id: \.self) { number in
-                            NavigationLink(
-                            destination: DetailView(city: self.cityStore.allCitiesArray[number])) {
-                                VStack(alignment: .leading) {
-                                    Text("\(self.cityStore.allCitiesArray[number].name), \(self.cityStore.allCitiesArray[number].country)")
-                                    Text("lat:\(self.cityStore.allCitiesArray[number].coord.lat)  lon:\(self.cityStore.allCitiesArray[number].coord.lon)").font(.footnote).foregroundColor(.gray)
-                                }
-                            }
+                            self.link(for: self.cityStore.allCitiesArray[number])
                         }
                         Button(action: loadMore) {
                             Text("")
@@ -60,15 +52,23 @@ struct ContentView: View {
                 }
             }
             .navigationBarTitle("City list")
-            .onTapGesture {
-                if self.keyboardOpen {
-                    UIApplication.shared.endEditing()
-                    self.keyboardOpen = false
-                }
-            }
         }
         .onAppear(perform: fetch)
 
+    }
+
+    private func link(for city: City) -> some View {
+        let selection = Binding(get: { self.tappedLink },
+            set: {
+                UIApplication.shared.endEditing()
+                self.tappedLink = $0
+        })
+        return NavigationLink(destination: DetailView(city: city), tag: city.name, selection: selection) {
+            VStack(alignment: .leading) {
+                Text("\(city.name), \(city.country)")
+                Text("lat:\(city.coord.lat)  lon:\(city.coord.lon)").font(.footnote).foregroundColor(.gray)
+            }
+        }
     }
 
     private func fetch() {
