@@ -11,7 +11,7 @@ import SwiftUI
 struct ContentView: View {
 
     @State private var progressValue: Float = 0.0
-
+    @State private var keyboardOpen: Bool = false
     private let chunkSize = 20
 
     @EnvironmentObject var cityStore: CityStore
@@ -26,6 +26,8 @@ struct ContentView: View {
                         TextField("Search", text: $cityStore.searchTerm, onCommit: debouncedFetch)
                             .keyboardType(.namePhonePad)
                             .disableAutocorrection(true)
+                            .onTapGesture { self.keyboardOpen = true }
+                            .onDisappear { self.keyboardOpen = false }
                     } else {
                         HStack {
                             Text("Building search").font(.footnote).foregroundColor(.gray)
@@ -58,7 +60,12 @@ struct ContentView: View {
                 }
             }
             .navigationBarTitle("City list")
-            .onTapGesture { UIApplication.shared.endEditing() }
+            .onTapGesture {
+                if self.keyboardOpen {
+                    UIApplication.shared.endEditing()
+                    self.keyboardOpen = false
+                }
+            }
         }
         .onAppear(perform: fetch)
 
