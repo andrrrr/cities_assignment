@@ -46,8 +46,8 @@
             filePath = "BackbaseAssignment/Testing/CityStoreTests.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
             landmarkName = "spec()"
             landmarkType = "7">
          </BreakpointContent>
@@ -55,39 +55,104 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "14C1E457-B911-4A49-AD16-2F4536E5558A"
+            uuid = "7BEF1C51-B15F-46D8-BEF7-261F549832BF"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BackbaseAssignment/CityStore.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "77"
+            endingLineNumber = "77"
+            landmarkName = "search(matching:handler:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A5A6CA3F-3DD9-41D5-8C2D-1129EF28288F"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BackbaseAssignment/Testing/CityStoreTests.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
+            startingLineNumber = "36"
+            endingLineNumber = "36"
             landmarkName = "spec()"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "14C1E457-B911-4A49-AD16-2F4536E5558A - 92b3db8f0146fcd3"
+                  uuid = "A5A6CA3F-3DD9-41D5-8C2D-1129EF28288F - 992c6b60ffcb9adc"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #2 (() -&gt; ()) -&gt; () in closure #1 () -&gt; () in closure #2 () -&gt; () in BackbaseAssignmentTests.CityStoreTests.spec() -&gt; ()"
+                  symbolName = "closure #1 () -&gt; () in closure #1 () -&gt; () in closure #1 () -&gt; () in BackbaseAssignmentTests.CityStoreTests.spec() -&gt; ()"
                   moduleName = "BackbaseAssignmentTests"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/andreinevar/Documents/Learning/BackbaseAssignment/BackbaseAssignment/BackbaseAssignment/Testing/CityStoreTests.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "47"
-                  endingLineNumber = "47"
-                  offsetFromSymbolStart = "56">
+                  startingLineNumber = "36"
+                  endingLineNumber = "36"
+                  offsetFromSymbolStart = "385">
                </Location>
                <Location
-                  uuid = "14C1E457-B911-4A49-AD16-2F4536E5558A - ccd63143f9e0205c"
+                  uuid = "A5A6CA3F-3DD9-41D5-8C2D-1129EF28288F - 7052fedf5d02925e"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Range&lt;Swift.Int&gt;) -&gt; () in closure #2 (() -&gt; ()) -&gt; () in closure #1 () -&gt; () in closure #2 () -&gt; () in BackbaseAssignmentTests.CityStoreTests.spec() -&gt; ()"
+                  symbolName = "closure #2 (Swift.Range&lt;Swift.Int&gt;) -&gt; () in closure #1 () -&gt; () in closure #1 () -&gt; () in closure #1 () -&gt; () in BackbaseAssignmentTests.CityStoreTests.spec() -&gt; ()"
+                  moduleName = "BackbaseAssignmentTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andreinevar/Documents/Learning/BackbaseAssignment/BackbaseAssignment/BackbaseAssignment/Testing/CityStoreTests.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "28"
+                  endingLineNumber = "28"
+                  offsetFromSymbolStart = "44">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "95173519-31D2-4377-8030-0F0EE6EF4710"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BackbaseAssignment/CityStore.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "86"
+            endingLineNumber = "86"
+            landmarkName = "search(matching:handler:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F6FDF34F-E951-4EAE-94F9-E0C99A30ABCF"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BackbaseAssignment/Testing/CityStoreTests.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
+            landmarkName = "spec()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "F6FDF34F-E951-4EAE-94F9-E0C99A30ABCF - 7052fedf5d02925e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Range&lt;Swift.Int&gt;) -&gt; () in closure #1 () -&gt; () in closure #1 () -&gt; () in closure #1 () -&gt; () in BackbaseAssignmentTests.CityStoreTests.spec() -&gt; ()"
                   moduleName = "BackbaseAssignmentTests"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/andreinevar/Documents/Learning/BackbaseAssignment/BackbaseAssignment/BackbaseAssignment/Testing/CityStoreTests.swift"
@@ -95,7 +160,22 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "38"
                   endingLineNumber = "38"
-                  offsetFromSymbolStart = "44">
+                  offsetFromSymbolStart = "298">
+               </Location>
+               <Location
+                  uuid = "F6FDF34F-E951-4EAE-94F9-E0C99A30ABCF - db1bbae9c742d3a9"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (BackbaseAssignment.City) -&gt; Swift.Bool in implicit closure #1 () throws -&gt; Swift.Optional&lt;Swift.Bool&gt; in closure #2 (Swift.Range&lt;Swift.Int&gt;) -&gt; () in closure #1 () -&gt; () in closure #1 () -&gt; () in closure #1 () -&gt; () in BackbaseAssignmentTests.CityStoreTests.spec() -&gt; ()"
+                  moduleName = "BackbaseAssignmentTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andreinevar/Documents/Learning/BackbaseAssignment/BackbaseAssignment/BackbaseAssignment/Testing/CityStoreTests.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "38"
+                  endingLineNumber = "38"
+                  offsetFromSymbolStart = "20">
                </Location>
             </Locations>
          </BreakpointContent>
