@@ -40,10 +40,13 @@ class CityStoreTests: QuickSpec {
                     treeBuilder.buildTree(store.allCitiesArray, completed: { tree in
                         store.setTree(tree)
 
-                        store.search(matching: "New York", handler: { range in
-                                               rangeFound = range
-                                expect((store.allCitiesArray[rangeFound]).contains(where: { $0.name == "New York"})).toEventually(beTrue())
-                        })
+                    })
+                }
+
+                waitUntil (timeout: 500) { done in
+                    store.search(matching: "New York", handler: { range in
+                                           rangeFound = range
+                            expect((store.allCitiesArray[rangeFound]).contains(where: { $0.name == "New York"})).toEventually(beTrue())
                     })
                 }
             }
